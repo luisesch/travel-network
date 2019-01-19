@@ -62,4 +62,9 @@ button a {
   color: #43a3e6;
   transition: 0.3s ease background; }
 
+.error-message {
+  background-color: coral;
+  color: white;
+  border-radius: 2px; }
+
 /*# sourceMappingURL=style.css.map */

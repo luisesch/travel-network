@@ -1,22 +1,24 @@
-<h2 class="text-center">Welcome to your profile, {{user.username}}</h2>
+<h2 class="text-center mt-4 mb-4">Welcome to your profile, {{user.username}}</h2>
 
 
-<section class="user-info px-5">
-  <div class="row">
-    <div class="col-xs-5 col-md-3">
-      <img src="/images/default_profile.jpg" class="img-fluid">
-    </div>
-    <div class="col-xs-7 col-md-9">
-      <p>Name: {{user.username}}</p>
+<section class="user-info p-3 mb-4">
+  <div class="text-center">
+    <div>
+      <img src="/images/default_profile.jpg" class="img-fluid rounded-circle">
     </div>
   </div>
 </section>
 
-<section class="user-travels text-center">
-  <h3>Your travels</h3>
-  <button class="btn btn-primary mb-5">Add new experience</button>
+<section class="user-travels px-5 mb-4">
+  <h3 class="mb-4">Your travels</h3>
+  <button class="btn btn-primary">Add new experience</button>
 </section>
 
-<section class="user-travels text-center">
+<section class="user-favorites px-5 mb-6">
   <h3>Your favorites</h3>
+</section>
+
+<section class="edit-profile px-5 mb-4">
+  <button class="btn btn-primary">Change password</button>
+  <button class="btn btn-primary">Logout</button>
 </section>

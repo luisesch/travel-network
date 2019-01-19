@@ -28,4 +28,11 @@ button a {
   color: white;
   border-radius: 2px; }
 
+.user-info {
+  background-color: #d8e6df; }
+
+.user-info img {
+  width: 15%;
+  min-width: 100px; }
+
 /*# sourceMappingURL=style.css.map */

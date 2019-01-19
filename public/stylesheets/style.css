@@ -1,5 +1,5 @@
 body {
-  font: "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font-family: "Source Sans Pro", sans-serif; }
 
 a {
   color: #00b7ff; }
@@ -35,5 +35,8 @@ button a {
 .user-info img {
   width: 15%;
   min-width: 100px; }
+
+.light-green {
+  background-color: #d8e6df; }
 
 /*# sourceMappingURL=style.css.map */

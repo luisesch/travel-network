@@ -1,7 +1,7 @@
 <h2 class="text-center mt-4 mb-4">Welcome to your profile, {{user.username}}</h2>
 
 
-<section class="user-info p-3 mb-4">
+<section class="user-info p-3 mb-5">
   <div class="text-center">
     <div>
       <img src="/images/default_profile.jpg" class="img-fluid rounded-circle">
@@ -10,15 +10,50 @@
 </section>
 
 <section class="user-travels px-5 mb-4">
-  <h3 class="mb-4">Your travels</h3>
-  <button class="btn btn-primary">Add new experience</button>
+  <div class="row">
+    <h3 class="col-10">Your travels</h3>
+    <a class="col-2 pt-2 text-right" href="#">See all</a>
+  </div>
+  <div class="row p-3">
+    {{#each travels}}
+    <div class="col-xs-3 col-md-3 text-center mb-4">
+      <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
+      <h6>{{this.title}}</h6>
+      <div>
+        <button type="submit" class="btn btn-sm btn-primary"><a href="#">Edit</a></button>
+        <button type="submit" class="btn btn-sm btn-danger"><a href="#">Delete</a></button>
+      </div>
+    </div>
+    {{/each}}
+    <div class="col-xs-3 col-md-3 text-center mb-4">
+      <a href="#"><img src="/images/plus_icon.png" class="img-fluid rounded mb-1"></a>
+      <h6>Add new travel</h6>
+    </div>
 </section>
 
-<section class="user-favorites px-5 mb-6">
-  <h3>Your favorites</h3>
+<section class="user-favorites px-5 pt-4 mb-4 light-green">
+  <div class="row">
+    <h3 class="col-10">Your favorites</h3>
+    <a class="col-2 pt-2 text-right" href="#">See all</a>
+  </div>
+  <div class="row p-3">
+    {{#each travels}}
+    <div class="col-xs-3 col-md-3 text-center mb-4">
+      <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
+      <h6>{{this.title}}</h6>
+      <div>
+        <button type="submit" class="btn btn-sm btn-primary"><a href="#">Edit</a></button>
+        <button type="submit" class="btn btn-sm btn-danger"><a href="#">Delete</a></button>
+      </div>
+    </div>
+    {{/each}}
+    <div class="col-xs-3 col-md-3 text-center mb-4">
+      <a href="#"><img src="/images/magnifier_icon.png" class="img-fluid rounded mb-1"></a>
+      <h6>Get more inspiration</h6>
+    </div>
 </section>
 
-<section class="edit-profile px-5 mb-4">
+<section class="edit-profile px-5 mb-4 text-right">
   <button class="btn btn-primary">Change password</button>
   <button class="btn btn-primary"><a href="/logout">Logout</a></button>
 </section>

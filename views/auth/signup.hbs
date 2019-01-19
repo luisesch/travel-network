@@ -1,6 +1,6 @@
 <h2 class="text-center mt-4">Signup</h2>
 
-<form action="/signup" method="POST" id="form" class="text-center p-3">
+<form action="/signup" method="POST" id="form" class="text-center p-3 light-green">
   <div class="form-group">
     <label for="username">Username</label>
     <input id="username" type="text" name="username" placeholder="JonSnow">
@@ -11,9 +11,8 @@
   </div>
 
   {{#if message}}
-  <div class="error-message">{{ message }}</div>
+  <div class="error-message text-center mb-3 mx-5 p-2">{{ message }}</div>
   {{/if}}
-  <br><br>
 
   <button class="btn btn-primary">Create account</button>
 

@@ -1,0 +1,16 @@
+<h2 class="text-center">Login</h2>
+
+<form action="/login" method="POST" id="form">
+  <label for="username">Username</label>
+  <input id="username" type="text" name="username">
+  <br><br>
+  <label for="password">Password</label>
+  <input id="password" type="password" name="password">
+
+  {{#if message}}
+  <div class="error-message text-center p-2">{{ message }}</div>
+  {{/if}}
+  <br><br>
+
+  <button>Log in</button>
+</form>

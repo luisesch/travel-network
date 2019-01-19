@@ -5,7 +5,8 @@ a {
   color: #00b7ff; }
 
 button a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: white; }
 
 .search-form {
   background-color: #d8e6df;

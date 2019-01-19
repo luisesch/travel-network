@@ -80,4 +80,10 @@ authRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
   res.render("user/profile", { user: req.user });
 });
 
+//logout and redirect to login page
+authRoutes.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/login");
+});
+
 module.exports = authRoutes;

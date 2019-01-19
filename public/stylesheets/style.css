@@ -1,0 +1,23 @@
+body {
+  font: "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+a {
+  color: #00b7ff; }
+
+.search-form {
+  background-color: #d8e6df;
+  width: 45%;
+  border-radius: 10px; }
+
+.input-category {
+  width: 100%; }
+
+.top-index {
+  background-image: url(https://www.camping.family/wp-content/uploads/2017/08/Wohnmobil-in-der-Natur-840x466.jpg);
+  background-repeat: no-repeat;
+  background-size: cover; }
+
+.responsive-width {
+  font-size: 2.5vw; }
+
+/*# sourceMappingURL=style.css.map */

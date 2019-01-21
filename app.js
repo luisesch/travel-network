@@ -125,4 +125,7 @@ app.use("/", authRoutes);
 const profileRoutes = require("./routes/profile-routes");
 app.use("/", profileRoutes);
 
+const travelRoutes = require("./routes/travel-routes");
+app.use("/", travelRoutes);
+
 module.exports = app;

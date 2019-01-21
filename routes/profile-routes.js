@@ -13,6 +13,8 @@ const User = require("../models/user");
 const Travel = require("../models/travel");
 const uploadCloud = require("../config/cloudinary.js");
 
+//edit
+
 //find user to be edited and open edit form page
 profileRoutes.get(
   "/profile/:userId/edit",
@@ -28,11 +30,12 @@ profileRoutes.get(
   }
 );
 
-//get information from editing form, update db and redirect to updated profile
+//get new password from editing form, update db and redirect to updated profile
 profileRoutes.post("/profile/:userId/editpassword", (req, res, next) => {
   const password = req.body.password;
   const repeatPassword = req.body.passwordRepeat;
 
+  //if the two password fields don't match, show error message
   if (password !== repeatPassword) {
     res.render("user/edit", { message: "Repeat your new password" });
     return;
@@ -50,6 +53,7 @@ profileRoutes.post("/profile/:userId/editpassword", (req, res, next) => {
     });
 });
 
+//send new photo to cloudinary, update db and redirect to updated profile
 profileRoutes.post(
   "/profile/:userId/editpicture",
   uploadCloud.single("profilepic"),

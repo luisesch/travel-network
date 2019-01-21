@@ -8,6 +8,9 @@ button a {
   text-decoration: none;
   color: white; }
 
+label {
+  font-weight: bold; }
+
 .search-form {
   background-color: #d8e6df;
   width: 45%;

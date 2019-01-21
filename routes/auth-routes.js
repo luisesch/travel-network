@@ -4,8 +4,9 @@ const passport = require("passport");
 
 const ensureLogin = require("connect-ensure-login");
 
-// User model
+// User and travel model
 const User = require("../models/user");
+const Travel = require("../models/travel");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -68,7 +69,7 @@ authRoutes.get("/login", (req, res, next) => {
 authRoutes.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/profile",
+    successRedirect: "/profile/",
     failureRedirect: "/login",
     failureFlash: true,
     passReqToCallback: true
@@ -77,7 +78,21 @@ authRoutes.post(
 
 //render profile page (only if logged in)
 authRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
-  res.render("user/profile", { user: req.user });
+  //get all travels from database (for now) and render to profile page (will need to be edited later, so that it renders the favorites and the travels of that individual user)
+  Travel.find()
+    .then(travels => {
+      const firstThree = travels.slice(0, 3);
+      res.render("user/profile", { user: req.user, travels: firstThree });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
+//logout and redirect to login page
+authRoutes.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/login");
 });
 
 module.exports = authRoutes;

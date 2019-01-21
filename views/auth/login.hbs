@@ -1,6 +1,6 @@
-<h2 class="text-center">Login</h2>
+<h2 class="text-center mt-4">Login</h2>
 
-<form action="/login" method="POST" id="form" class="text-center p-3">
+<form action="/login" method="POST" id="form" class="text-center p-3 light-green">
   <div class="form-group">
     <label for="username">Username</label>
     <input id="username" type="text" name="username">
@@ -10,9 +10,8 @@
     <input id="password" type="password" name="password">
   </div>
   {{#if message}}
-  <div class="error-message text-center p-2">{{ message }}</div>
+  <div class="error-message text-center mb-3 mx-5 p-2">{{ message }}</div>
   {{/if}}
-  <br><br>
 
   <button class="btn btn-primary">Log in</button>
 </form>

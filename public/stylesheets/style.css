@@ -1,11 +1,12 @@
 body {
-  font: "Lucida Grande", Helvetica, Arial, sans-serif; }
+  font-family: "Source Sans Pro", sans-serif; }
 
 a {
   color: #00b7ff; }
 
 button a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: white; }
 
 .search-form {
   background-color: #d8e6df;
@@ -27,5 +28,18 @@ button a {
   background-color: coral;
   color: white;
   border-radius: 2px; }
+
+.user-info {
+  background-color: #d8e6df; }
+
+.profile-pic {
+  width: 15%;
+  min-width: 100px; }
+
+.light-green {
+  background-color: #d8e6df; }
+
+.edit-button {
+  max-width: 70px; }
 
 /*# sourceMappingURL=style.css.map */

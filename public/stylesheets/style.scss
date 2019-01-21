@@ -1,5 +1,5 @@
 body {
-  font: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 a {
@@ -8,6 +8,7 @@ a {
 
 button a {
   text-decoration: none;
+  color: white;
 }
 
 .search-form {
@@ -30,52 +31,25 @@ button a {
   font-size: 2.5vw;
 }
 
-// #form {
-//   margin: 30px auto;
-//   width: 380px;
-// }
-
-// #form label {
-//   color: #666;
-//   display: inline-block;
-//   margin-bottom: 10px;
-//   text-align: center;
-//   width: 100%;
-// }
-
-// #form input,
-// #form button {
-//   box-sizing: border-box;
-//   font-size: 14px;
-//   outline: 0;
-//   padding: 4px;
-//   width: 100%;
-//   margin-bottom: 20px;
-// }
-
-// #form button {
-//   background: #43a3e6;
-//   border: 1px solid #43a3e6;
-//   border-radius: 4px;
-//   color: #fff;
-//   cursor: pointer;
-//   display: inline-block;
-//   font-size: 14px;
-//   padding: 8px 16px;
-//   text-decoration: none;
-//   text-transform: uppercase;
-//   transition: 0.3s ease background;
-//   width: 100%;
-// }
-
-// #form button:hover {
-//   background: #fff;
-//   color: #43a3e6;
-//   transition: 0.3s ease background;
-// }
-
 .error-message {
   background-color: coral;
   color: white;
   border-radius: 2px;
+}
+
+.user-info {
+  background-color: #d8e6df;
+}
+
+.profile-pic {
+  width: 15%;
+  min-width: 100px;
+}
+
+.light-green {
+  background-color: #d8e6df;
+}
+
+.edit-button {
+  max-width: 70px;
 }

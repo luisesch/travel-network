@@ -22,6 +22,8 @@ const categories = [
   "Pilgrimage"
 ];
 
+//add new experience
+
 //render page with form to add new travel
 travelRoutes.get(
   "/travel/add",
@@ -68,6 +70,25 @@ travelRoutes.post(
       })
       .catch(error => {
         console.log(error);
+      });
+  }
+);
+
+// show selected experience
+
+//find experience by id and render page
+travelRoutes.get(
+  "/travel/:travelId",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    Travel.findById(req.params.travelId)
+      .then(travel => {
+        //necessary for the carousel (first item of array needs to be rendered individually)
+        const photoArray = travel.photos.slice(1);
+        res.render("travel/singleview", { travel, photoArray });
+      })
+      .catch(err => {
+        console.log(err);
       });
   }
 );

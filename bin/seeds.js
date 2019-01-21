@@ -7,7 +7,7 @@ mongoose.connect(`mongodb://localhost/${dbName}`);
 const travels = [
   {
     title: "Schlittenfahren in Canada",
-    photos: "/images/experiences_train.jpeg",
+    photos: ["/images/experiences_train.jpeg", "/images/hiking.jpg"],
     Description:
       "Ich bin das erste Mal in meinem Leben Hundeschlitten gefahren - das war großartig",
     Start: "München",

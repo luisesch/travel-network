@@ -32,11 +32,14 @@ button a {
 .user-info {
   background-color: #d8e6df; }
 
-.user-info img {
+.profile-pic {
   width: 15%;
   min-width: 100px; }
 
 .light-green {
   background-color: #d8e6df; }
+
+.edit-button {
+  max-width: 70px; }
 
 /*# sourceMappingURL=style.css.map */

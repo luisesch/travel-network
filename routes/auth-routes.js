@@ -69,24 +69,12 @@ authRoutes.get("/login", (req, res, next) => {
 authRoutes.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/profile",
+    successRedirect: "/profile/",
     failureRedirect: "/login",
     failureFlash: true,
     passReqToCallback: true
   })
 );
-
-//get first three travels
-function getFirstThree() {
-  Travel.find()
-    .then(travels => {
-      const firstThree = travels.slice(0, 3);
-      return firstThree;
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
 
 //render profile page (only if logged in)
 authRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {

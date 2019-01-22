@@ -3,15 +3,15 @@ const router = express.Router();
 
 const cities = ["Berlin", "Hamburg", "Köln", "München"];
 const categories = [
-  "Travel with kids",
-  "Panorama",
+  "travel with kids",
+  "panorama",
   "train",
-  "Bike",
-  "Ship",
-  "Hiking",
-  "Sea",
-  "City Trip",
-  "Pilgrimage"
+  "bike",
+  "ship",
+  "hiking",
+  "sea",
+  "city trip",
+  "pilgrimage"
 ];
 
 /* GET home page */

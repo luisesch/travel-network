@@ -128,4 +128,8 @@ app.use("/", profileRoutes);
 const travelRoutes = require("./routes/travel-routes");
 app.use("/", travelRoutes);
 
+const searchRoutes = require("./routes/search-routes");
+app.use("/", searchRoutes);
+
+
 module.exports = app;

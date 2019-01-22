@@ -7,26 +7,26 @@ mongoose.connect(`mongodb://localhost/${dbName}`);
 const travels = [
   {
     title: "Schlittenfahren in Canada",
-    photos: "/images/experiences_train.jpeg",
-    Description:
+    photos: ["/images/experiences_train.jpeg", "/images/hiking.jpg"],
+    description:
       "Ich bin das erste Mal in meinem Leben Hundeschlitten gefahren - das war großartig",
-    Start: "München",
-    Category: "train"
+    start: "München",
+    category: "train"
   },
   {
     title: "Kühe melken in Brandenburg",
     photos: "/images/experiences_train.jpeg",
-    Description: "Mit Zug und Fahrrad nach Brodowin- das Gute kann so nah sein",
-    Start: "Berlin",
-    Category: "bike"
+    description: "Mit Zug und Fahrrad nach Brodowin- das Gute kann so nah sein",
+    start: "Berlin",
+    category: "bike"
   },
   {
     title: "Klettern in Sachsen",
     photos: "/images/experiences_train.jpeg",
-    Description:
+    description:
       "Tolle Aussicht im Elbsandsteingebirge und Knödel in Tschechien sind einfach yammi",
-    Start: "Dresden",
-    Category: "train"
+    start: "Dresden",
+    category: "train"
   }
 ];
 

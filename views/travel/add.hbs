@@ -1,17 +1,17 @@
-<h2 class="text-center mt-4">Add your experience</h2>
+<h2 class="text-center mt-4 mb-4">Add your experience</h2>
 
 <form action="/travel/add" method="POST" id="form" enctype="multipart/form-data" class="p-5 light-green">
 
   <div class="form-group">
     <label for="title">Title</label><br>
-    <input id="title" type="text" name="title" class="w-50">
+    <input id="title" type="text" name="title" class="w-50" required>
   </div>
 
   <div class="form-group">
-    <label for="categories">Categories</label><br>
+    <label for="category">Categories</label><br>
     {{#each categories}}
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id={{this}} value={{this}}>
+      <input class="form-check-input" type="checkbox" name="category" value={{this}}>
       <label class="form-check-label" for={{this}}>{{this}}</label>
     </div>
     {{/each}}
@@ -20,7 +20,7 @@
   <div class="form-group">
     <label for="start">Where did you start</label><br>
     <div class="input-category w-50">
-      <select class="custom-select" id="cities">
+      <select class="custom-select" name="start">
         {{#each cities}}
         <option value={{this}}>{{this}}</option>
         {{/each}}
@@ -30,7 +30,7 @@
 
   <div class="form-group">
     <label for="description">Description</label><br>
-    <textarea class="form-control w-50" id="description" id="description" name="description" rows="4"></textarea>
+    <textarea class="form-control w-50" id="description" id="description" name="description" rows="4" required></textarea>
   </div>
 
   <div class="form-group">
@@ -38,9 +38,9 @@
     <input id="photos" type="file" name="photos" multiple>
   </div>
 
-  {{!-- {{#if message}}
-  <div class="error-message text-center mb-3 mx-5 p-2">{{ message }}</div>
-  {{/if}} --}}
+  {{#if message}}
+  <div class="error-message text-center w-50 mb-3 p-2">{{ message }}</div>
+  {{/if}}
 
   <button class="btn btn-primary">Create new experience</button>
 </form>

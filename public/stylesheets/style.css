@@ -45,4 +45,11 @@ label {
 .edit-button {
   max-width: 70px; }
 
+.carousel-inner img {
+  margin: auto;
+  max-height: 400px; }
+
+.heart {
+  max-width: 80px; }
+
 /*# sourceMappingURL=style.css.map */

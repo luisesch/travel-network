@@ -58,19 +58,26 @@ travelRoutes.post(
 
     const newTravel = new Travel({
       photos: urlArray,
-      Category: category,
+      category: category,
       title: title,
-      Description: description,
-      Start: start
+      description: description,
+      start: start
     });
-    newTravel
-      .save()
-      .then(travel => {
-        res.redirect("/profile");
-      })
-      .catch(error => {
-        console.log(error);
-      });
+
+    //push id of new travel to user who created it (to travels array) and open travel page
+    newTravel.save().then(travel => {
+      const travelId = travel._id;
+      User.update({ _id: req.user._id }, { $push: { travels: travelId } })
+        .then(() => {
+          res.redirect("/travel/" + travelId);
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
   }
 );
 

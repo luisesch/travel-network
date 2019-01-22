@@ -1,0 +1,13 @@
+<h2 class="text-center mt-4">Result(s) for your search...</h2>
+
+ <div class="row p-3">
+    {{#each travels}}
+    <div class="col-xs-3 col-md-3 text-center mb-4">
+      <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
+      <h6>{{this.title}}</h6>
+    </div>
+    {{/each}}
+    <div class="col-xs-3 col-md-3 text-center mb-4">
+      <a href="/travel/add"><img src="/images/plus_icon.png" class="img-fluid rounded mb-1"></a>
+      <h6>Have a better trip in mind?</h6>
+    </div>

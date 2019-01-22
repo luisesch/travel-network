@@ -5,7 +5,7 @@ const cities = ["Berlin", "Hamburg", "Köln", "München"];
 const categories = [
   "Travel with kids",
   "Panorama",
-  "Train",
+  "train",
   "Bike",
   "Ship",
   "Hiking",

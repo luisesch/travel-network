@@ -9,27 +9,42 @@ const bcryptSalt = 10;
 const ensureLogin = require("connect-ensure-login");
 
 // User and travel model
+const Like = require("../models/like");
 const User = require("../models/user");
 const Travel = require("../models/travel");
 const uploadCloud = require("../config/cloudinary.js");
 
 //render profile page (only if logged in)
 profileRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
-  //get travels user has created and render first three to profile page
-  const travels = req.user.travels;
-  const firstThree = travels.slice(0, 3);
-  //get all travels from database (for now) and render to profile page (will need to be edited later, so that it renders the favorites of that individual user)
-  Travel.find()
-    .then(travels => {
-      const firstThreeFavorites = travels.slice(0, 3);
-      res.render("user/profile", {
-        user: req.user,
-        travels: firstThree,
-        favorites: firstThreeFavorites
-      });
+  //get travels user has created and get first three
+  let firstThreeTravels = [];
+  let firstThreeFavorites = [];
+
+  User.findOne({ _id: req.user._id })
+    .populate("travels")
+    .then(user => {
+      const travels = user.travels;
+      firstThreeTravels = travels.slice(0, 3);
+      // console.log(firstThreeTravels);
     })
-    .catch(error => {
-      console.log(error);
+    .then(() => {
+      //get first three favorites of user
+      Like.find({ userId: req.user._id })
+        .populate("travelId")
+        .then(likes => {
+          firstThree = likes.slice(0, 3);
+          firstThree.forEach(item => firstThreeFavorites.push(item.travelId));
+        })
+        .then(() =>
+          res.render("user/profile", {
+            user: req.user,
+            travels: firstThreeTravels,
+            favorites: firstThreeFavorites
+          })
+        )
+        .catch(error => {
+          console.log(error);
+        });
     });
 });
 

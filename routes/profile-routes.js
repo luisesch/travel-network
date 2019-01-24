@@ -13,6 +13,26 @@ const User = require("../models/user");
 const Travel = require("../models/travel");
 const uploadCloud = require("../config/cloudinary.js");
 
+//render profile page (only if logged in)
+profileRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
+  //get travels user has created and render first three to profile page
+  const travels = req.user.travels;
+  const firstThree = travels.slice(0, 3);
+  //get all travels from database (for now) and render to profile page (will need to be edited later, so that it renders the favorites of that individual user)
+  Travel.find()
+    .then(travels => {
+      const firstThreeFavorites = travels.slice(0, 3);
+      res.render("user/profile", {
+        user: req.user,
+        travels: firstThree,
+        favorites: firstThreeFavorites
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+
 //edit
 
 //find user to be edited and open edit form page

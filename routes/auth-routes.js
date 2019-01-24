@@ -76,19 +76,6 @@ authRoutes.post(
   })
 );
 
-//render profile page (only if logged in)
-authRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
-  //get all travels from database (for now) and render to profile page (will need to be edited later, so that it renders the favorites and the travels of that individual user)
-  Travel.find()
-    .then(travels => {
-      const firstThree = travels.slice(0, 3);
-      res.render("user/profile", { user: req.user, travels: firstThree });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
-
 //logout and redirect to login page
 authRoutes.get("/logout", (req, res) => {
   req.logout();

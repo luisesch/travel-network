@@ -28,8 +28,8 @@
         <h6>{{this.title}}</h6>
       </a>
       <div>
-        <button type="submit" class="btn btn-sm btn-primary"><a href="#">Edit</a></button>
-        <button type="submit" class="btn btn-sm btn-danger"><a href="#">Delete</a></button>
+        <button type="submit" class="btn btn-sm btn-primary"><a href="/travel/edit/{{this._id}}">Edit</a></button>
+        <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
       </div>
     </div>
     {{/each}}
@@ -52,8 +52,7 @@
       <h6>{{this.title}}</h6>
       </a>
       <div>
-        <button type="submit" class="btn btn-sm btn-primary"><a href="/travel/edit/{{this._id}}">Edit</a></button>
-        <button type="submit" class="btn btn-sm btn-danger"><a href="#">Delete</a></button>
+        <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
       </div>
     </div>
     {{/each}}

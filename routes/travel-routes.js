@@ -123,14 +123,7 @@ travelRoutes.get(
 
 travelRoutes.get("/travel/edit/:travelId", (req, res, next) => {
   Travel.findById(req.params.travelId)
-  .then((travel) => {
-    res.render("travel/travel-edit", {travel: travel, cities: cities, categories: categories});
-  })
-  .catch((error) => {
-    console.log(error);
-  })
     .then(travel => {
-      console.log("INSIDE EDIT GET", travel);
       res.render("travel/travel-edit", {
         travel: travel,
         cities: cities,
@@ -146,6 +139,16 @@ travelRoutes.get("/travel/edit/:travelId", (req, res, next) => {
 travelRoutes.post("/travel/edit/:travelId", (req, res, next) => {
   const { title, description, start, category } = req.body;
   const travid = req.params.travelId;
+
+  if (category == null) {
+    res.render("travel/add", {
+      cities: cities,
+      categories: categories,
+      message: "Choose at least one category."
+    });
+    return;
+  }
+
   Travel.update(
     { _id: req.params.travelId },
     {
@@ -214,5 +217,6 @@ travelRoutes.post(
     });
   }
 );
+
 
 module.exports = travelRoutes;

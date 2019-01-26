@@ -1,9 +1,8 @@
+<form action="/travel/edit/{{travel._id}}" method="POST" id="edittravel" class="p-5 light-green">
 
-<form action="/travel/edit/{{travel._id}}" method="POST" id="edittravel"  class="p-5 light-green">
- 
   <div class="form-group">
     <label for="title">Title</label><br>
-    <input id="title" type="text" name="title" class="w-50" value="title" required>
+    <input id="title" type="text" name="title" class="w-50" value={{travel.title}} required>
   </div>
 
   <div class="form-group">
@@ -29,10 +28,12 @@
 
   <div class="form-group">
     <label for="description">Description</label><br>
-    <textarea class="form-control w-50" id="description" id="description" name="description" rows="4" value="{{travel.description}}" placeholder="{{travel.description}}" required></textarea>
+    <textarea class="form-control w-50" id="description" id="description" name="description" rows="4" value={{travel.description}}
+      required>{{travel.description}}</textarea>
   </div>
 
-  <div class="form-group">
+  <div class="
+      form-group">
     <label for="photos">Add pictures</label><br>
     <input id="photos" type="file" name="photos" value="{{travel.photos}}" multiple>
   </div>

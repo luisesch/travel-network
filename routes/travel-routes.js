@@ -90,11 +90,12 @@ travelRoutes.get(
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
     let heart = "";
-
+    //check, if travel is liked by user
     Like.count({
       userId: req.user._id,
       travelId: req.params.travelId
     })
+      //if so, heart equals filled heart
       .then(count => {
         if (count > 0) {
           //if it exists, delete like/unlike
@@ -102,6 +103,7 @@ travelRoutes.get(
           heart = "/images/heart_filled.png";
           console.log(heart);
         } else {
+          //if not, heart equals unfilled heart
           heart = "/images/heart.png";
           console.log(heart);
         }
@@ -168,15 +170,33 @@ travelRoutes.post("/travel/edit/:travelId", (req, res, next) => {
     });
 });
 
+//delete photo on edit form
+
+travelRoutes.get("/photo/delete/*", (req, res, next) => {
+  console.log(req.params[0]);
+
+  // Travel.findById(req.params.travelId)
+  //   .then(travel => {
+  //     res.render("travel/travel-edit", {
+  //       travel: travel,
+  //       cities: cities,
+  //       categories: categories
+  //     });
+  //   })
+  //   .catch(error => {
+  //     console.log(error);
+  //   });
+});
+
 //delete a travel from 'your travels'
-travelRoutes.get('/travel/delete/:travelId', (req, res, next) => {
+travelRoutes.get("/travel/delete/:travelId", (req, res, next) => {
   Travel.findByIdAndRemove(req.params.travelId)
-  .then((travel) => {
-    res.redirect("/profile");
-  })
-  .catch((error) => {
-    console.log(error);
-  })
+    .then(travel => {
+      res.redirect("/profile");
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 //like
@@ -217,6 +237,5 @@ travelRoutes.post(
     });
   }
 );
-
 
 module.exports = travelRoutes;

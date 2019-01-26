@@ -36,11 +36,22 @@
       form-group">
     <label for="photos">Add pictures</label><br>
     <input id="photos" type="file" name="photos" value="{{travel.photos}}" multiple>
-  </div>
+    <div class="row p-3">
+      {{#each travel.photos}}
+      <div class="col-1 text-center mb-4">
+        <a href="#">
+          <img src={{this}} class="img-fluid rounded mb-1">
+        </a>
+        <div>
+          <button type="submit" class="btn btn-sm btn-danger"><a href="/photo/delete/{{this}}">Delete</a></button>
+        </div>
+      </div>
+      {{/each}}
+    </div>
 
-  {{#if message}}
-  <div class="error-message text-center w-50 mb-3 p-2">{{ message }}</div>
-  {{/if}}
+    {{#if message}}
+    <div class="error-message text-center w-50 mb-3 p-2">{{ message }}</div>
+    {{/if}}
 
-  <button class="btn btn-primary" type="submit">Edit</button>
+    <button class="btn btn-primary" type="submit">Edit</button>
 </form>

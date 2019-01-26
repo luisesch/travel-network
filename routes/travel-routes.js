@@ -89,11 +89,29 @@ travelRoutes.get(
   "/travel/:travelId",
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
-    Travel.findById(req.params.travelId)
-      .then(travel => {
-        //necessary for the carousel (first item of array needs to be rendered individually)
-        const photoArray = travel.photos.slice(1);
-        res.render("travel/singleview", { travel, photoArray });
+    let heart = "";
+
+    Like.count({
+      userId: req.user._id,
+      travelId: req.params.travelId
+    })
+      .then(count => {
+        if (count > 0) {
+          //if it exists, delete like/unlike
+          // console.log("delete like");
+          heart = "/images/heart_filled.png";
+          console.log(heart);
+        } else {
+          heart = "/images/heart.png";
+          console.log(heart);
+        }
+      })
+      .then(() => {
+        Travel.findById(req.params.travelId).then(travel => {
+          //necessary for the carousel (first item of array needs to be rendered individually)
+          const photoArray = travel.photos.slice(1);
+          res.render("travel/singleview", { travel, photoArray, heart });
+        });
       })
       .catch(err => {
         console.log(err);
@@ -103,7 +121,7 @@ travelRoutes.get(
 
 //edit existing travel/experience
 
-travelRoutes.get('/travel/edit/:travelId', (req, res, next) => {
+travelRoutes.get("/travel/edit/:travelId", (req, res, next) => {
   Travel.findById(req.params.travelId)
   .then((travel) => {
     res.render("travel/travel-edit", {travel: travel, cities: cities, categories: categories});
@@ -111,20 +129,40 @@ travelRoutes.get('/travel/edit/:travelId', (req, res, next) => {
   .catch((error) => {
     console.log(error);
   })
+    .then(travel => {
+      console.log("INSIDE EDIT GET", travel);
+      res.render("travel/travel-edit", {
+        travel: travel,
+        cities: cities,
+        categories: categories
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 //update the edited travel in the database
-travelRoutes.post('/travel/edit/:travelId', (req, res, next) => {
+travelRoutes.post("/travel/edit/:travelId", (req, res, next) => {
   const { title, description, start, category } = req.body;
-  const travid = req.params.travelId
-  Travel.update({_id: req.params.travelId}, { $set: {title: title, description: description, start: start, category: category }})
-  .then((travel) => {
-   
-    res.redirect('/travel/'+travid);
-  })
-  .catch((error) => {
-    console.log(error);
-  })
+  const travid = req.params.travelId;
+  Travel.update(
+    { _id: req.params.travelId },
+    {
+      $set: {
+        title: title,
+        description: description,
+        start: start,
+        category: category
+      }
+    }
+  )
+    .then(travel => {
+      res.redirect("/travel/" + travid);
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 //delete a travel from 'your travels'
@@ -144,18 +182,21 @@ travelRoutes.post(
   "/like/:travelId",
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
+    //check, if like already exists
     Like.count({
       userId: req.user._id,
       travelId: req.params.travelId
     }).then(count => {
       if (count > 0) {
-        console.log("delete like");
+        //if it exists, delete like/unlike
+        // console.log("delete like");
         Like.findOneAndDelete({
           userId: req.user._id,
           travelId: req.params.travelId
         }).then(() => res.redirect("/travel/" + req.params.travelId));
       } else {
-        console.log("add like");
+        //if it doesn't exist, create new like
+        // console.log("add like");
         const newLike = new Like({
           userId: req.user._id,
           travelId: req.params.travelId
@@ -173,37 +214,5 @@ travelRoutes.post(
     });
   }
 );
-//if like exists already, delete it when heart is clicked
-// if (
-//   Like.count({
-//     userId: req.user._id,
-//     travelId: req.params.travelId
-//   }) > 0
-// ) {
-//   console.log("delete like");
-//   Like.findOneAndDelete({
-//     userId: req.user._id,
-//     travelId: req.params.travelId
-//   }).then(() => res.redirect("/travel/" + req.params.travelId));
-// } else {
-//   //if like doesn't exist, create new like
-//   console.log("add like");
-//   const newLike = new Like({
-//     userId: req.user._id,
-//     travelId: req.params.travelId
-//   });
-//   //save like to database and redirect to travel page
-//   newLike
-//     .save()
-//     .then(() => {
-//       res.redirect("/travel/" + req.params.travelId);
-//     })
-//     .catch(error => {
-//       console.log(error);
-//     });
-// }
-//   }
-// );
-
 
 module.exports = travelRoutes;

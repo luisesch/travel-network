@@ -7,7 +7,7 @@ const userSchema = new Schema(
     password: String,
     photo: { type: String, default: "/images/default_profile.jpg" },
     email: String,
-    travels: Array
+    travels: [{ type: Schema.Types.ObjectId, ref: "Travel" }]
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" }

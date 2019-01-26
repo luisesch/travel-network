@@ -123,6 +123,12 @@ travelRoutes.get(
 
 travelRoutes.get("/travel/edit/:travelId", (req, res, next) => {
   Travel.findById(req.params.travelId)
+  .then((travel) => {
+    res.render("travel/travel-edit", {travel: travel, cities: cities, categories: categories});
+  })
+  .catch((error) => {
+    console.log(error);
+  })
     .then(travel => {
       console.log("INSIDE EDIT GET", travel);
       res.render("travel/travel-edit", {
@@ -157,6 +163,17 @@ travelRoutes.post("/travel/edit/:travelId", (req, res, next) => {
     .catch(error => {
       console.log(error);
     });
+});
+
+//delete a travel from 'your travels'
+travelRoutes.get('/travel/delete/:travelId', (req, res, next) => {
+  Travel.findByIdAndRemove(req.params.travelId)
+  .then((travel) => {
+    res.redirect("/profile");
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 });
 
 //like

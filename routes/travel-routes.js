@@ -100,4 +100,31 @@ travelRoutes.get(
   }
 );
 
+//edit existing travel/experience
+
+travelRoutes.get('/travel/edit/:travelId', (req, res, next) => {
+  Travel.findById(req.params.travelId)
+  .then((travel) => {
+    console.log("INSIDE EDIT GET",travel);
+    res.render("travel/travel-edit", {travel: travel, cities: cities, categories: categories});
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+});
+
+//update the edited travel in the database
+travelRoutes.post('/travel/edit/:travelId', (req, res, next) => {
+  const { title, description, start, category } = req.body;
+  const travid = req.params.travelId
+  Travel.update({_id: req.params.travelId}, { $set: {title: title, description: description, start: start, category: category }})
+  .then((travel) => {
+   
+    res.redirect('/travel/'+travid);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+});
+
 module.exports = travelRoutes;

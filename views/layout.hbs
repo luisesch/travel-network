@@ -18,6 +18,9 @@
     <a href="/" class="navbar-brand">Home</a>
     <form class="form-inline">
       {{#if user}}
+      <a class="nav-item nav-link" href="/profile">Profile</a>
+      <a class="nav-item nav-link" href="#">Travels</a>
+      <a class="nav-item nav-link" href="#">Favorites</a>
       <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/logout">Logout</a></button>
       {{else}}
       <button class="btn btn-success mr-sm-2" type="submit"><a href="/signup">Signup</a></button>

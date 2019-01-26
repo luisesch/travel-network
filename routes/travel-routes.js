@@ -101,7 +101,6 @@ travelRoutes.get(
   }
 );
 
-
 //edit existing travel/experience
 
 travelRoutes.get('/travel/edit/:travelId', (req, res, next) => {
@@ -129,26 +128,72 @@ travelRoutes.post('/travel/edit/:travelId', (req, res, next) => {
   })
 });
 
+//like
+
 travelRoutes.post(
   "/like/:travelId",
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
-    const newLike = new Like({
+    Like.count({
       userId: req.user._id,
       travelId: req.params.travelId
+    }).then(count => {
+      if (count > 0) {
+        console.log("delete like");
+        Like.findOneAndDelete({
+          userId: req.user._id,
+          travelId: req.params.travelId
+        }).then(() => res.redirect("/travel/" + req.params.travelId));
+      } else {
+        console.log("add like");
+        const newLike = new Like({
+          userId: req.user._id,
+          travelId: req.params.travelId
+        });
+        //save like to database and redirect to travel page
+        newLike
+          .save()
+          .then(() => {
+            res.redirect("/travel/" + req.params.travelId);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     });
-
-    //save user to database and redirect to home page
-    newLike
-      .save()
-      .then(() => {
-        res.redirect("/travel/" + req.params.travelId);
-      })
-      .catch(error => {
-        console.log(error);
-      });
   }
 );
+//if like exists already, delete it when heart is clicked
+// if (
+//   Like.count({
+//     userId: req.user._id,
+//     travelId: req.params.travelId
+//   }) > 0
+// ) {
+//   console.log("delete like");
+//   Like.findOneAndDelete({
+//     userId: req.user._id,
+//     travelId: req.params.travelId
+//   }).then(() => res.redirect("/travel/" + req.params.travelId));
+// } else {
+//   //if like doesn't exist, create new like
+//   console.log("add like");
+//   const newLike = new Like({
+//     userId: req.user._id,
+//     travelId: req.params.travelId
+//   });
+//   //save like to database and redirect to travel page
+//   newLike
+//     .save()
+//     .then(() => {
+//       res.redirect("/travel/" + req.params.travelId);
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// }
+//   }
+// );
 
 
 module.exports = travelRoutes;

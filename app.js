@@ -93,6 +93,11 @@ passport.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -130,6 +135,5 @@ app.use("/", travelRoutes);
 
 const searchRoutes = require("./routes/search-routes");
 app.use("/", searchRoutes);
-
 
 module.exports = app;

@@ -6,6 +6,7 @@ const ensureLogin = require("connect-ensure-login");
 
 // User and travel model
 const User = require("../models/user");
+const Like = require("../models/like");
 const Travel = require("../models/travel");
 const uploadCloud = require("../config/cloudinary.js");
 
@@ -100,6 +101,7 @@ travelRoutes.get(
   }
 );
 
+
 //edit existing travel/experience
 
 travelRoutes.get('/travel/edit/:travelId', (req, res, next) => {
@@ -126,5 +128,27 @@ travelRoutes.post('/travel/edit/:travelId', (req, res, next) => {
     console.log(error);
   })
 });
+
+travelRoutes.post(
+  "/like/:travelId",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    const newLike = new Like({
+      userId: req.user._id,
+      travelId: req.params.travelId
+    });
+
+    //save user to database and redirect to home page
+    newLike
+      .save()
+      .then(() => {
+        res.redirect("/travel/" + req.params.travelId);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+);
+
 
 module.exports = travelRoutes;

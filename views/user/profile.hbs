@@ -47,10 +47,12 @@
   <div class="row p-3">
     {{#each favorites}}
     <div class="col-xs-3 col-md-3 text-center mb-4">
+      <a href="/travel/{{this._id}}">
       <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
       <h6>{{this.title}}</h6>
+      </a>
       <div>
-        <button type="submit" class="btn btn-sm btn-primary"><a href="#">Edit</a></button>
+        <button type="submit" class="btn btn-sm btn-primary"><a href="/travel/edit/{{this._id}}">Edit</a></button>
         <button type="submit" class="btn btn-sm btn-danger"><a href="#">Delete</a></button>
       </div>
     </div>
@@ -64,3 +66,4 @@
 <section class="edit-profile px-5 mb-4 text-right">
   <button class="btn btn-primary"><a href="/logout">Logout</a></button>
 </section>
+

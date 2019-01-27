@@ -48,8 +48,8 @@
     {{#each favorites}}
     <div class="col-xs-3 col-md-3 text-center mb-4">
       <a href="/travel/{{this._id}}">
-      <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
-      <h6>{{this.title}}</h6>
+        <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
+        <h6>{{this.title}}</h6>
       </a>
       <div>
         <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
@@ -65,4 +65,3 @@
 <section class="edit-profile px-5 mb-4 text-right">
   <button class="btn btn-primary"><a href="/logout">Logout</a></button>
 </section>
-

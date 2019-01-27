@@ -123,70 +123,87 @@ travelRoutes.get(
 
 //edit existing travel/experience
 
-travelRoutes.get("/travel/edit/:travelId", (req, res, next) => {
-  Travel.findById(req.params.travelId)
-    .then(travel => {
-      res.render("travel/travel-edit", {
-        travel: travel,
-        cities: cities,
-        categories: categories
+travelRoutes.get(
+  "/travel/edit/:travelId",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    Travel.findById(req.params.travelId)
+      .then(travel => {
+        res.render("travel/travel-edit", {
+          travel: travel,
+          cities: cities,
+          categories: categories
+        });
+      })
+      .catch(error => {
+        console.log(error);
       });
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
+  }
+);
 
 //update the edited travel in the database
-travelRoutes.post("/travel/edit/:travelId", (req, res, next) => {
-  const { title, description, start, category } = req.body;
-  const travid = req.params.travelId;
+travelRoutes.post(
+  "/travel/edit/:travelId",
+  uploadCloud.array("photos"),
+  (req, res, next) => {
+    const { title, description, start, category } = req.body;
+    const travid = req.params.travelId;
+    let currentPhotos = [];
 
-  if (category == null) {
-    res.render("travel/add", {
-      cities: cities,
-      categories: categories,
-      message: "Choose at least one category."
-    });
-    return;
-  }
-
-  Travel.update(
-    { _id: req.params.travelId },
-    {
-      $set: {
-        title: title,
-        description: description,
-        start: start,
-        category: category
-      }
+    if (category == null) {
+      res.render("travel/travel-edit", {
+        cities: cities,
+        categories: categories,
+        message: "Choose at least one category."
+      });
+      return;
     }
-  )
-    .then(travel => {
-      res.redirect("/travel/" + travid);
-    })
-    .catch(error => {
-      console.log(error);
+
+    //create one array with existing and new photos
+    Travel.findById(travid).then(travel => {
+      currentPhotos.push(travel.photos);
     });
-});
+    req.files.forEach(file => {
+      currentPhotos.push(file.url);
+    });
+
+    Travel.update(
+      { _id: req.params.travelId },
+      {
+        $set: {
+          title: title,
+          description: description,
+          start: start,
+          category: category,
+          photos: currentPhotos
+        }
+      }
+    )
+      .then(travel => {
+        res.redirect("/travel/" + travid);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+);
 
 //delete photo on edit form
-
-travelRoutes.get("/photo/delete/*", (req, res, next) => {
-  console.log(req.params[0]);
-
-  // Travel.findById(req.params.travelId)
-  //   .then(travel => {
-  //     res.render("travel/travel-edit", {
-  //       travel: travel,
-  //       cities: cities,
-  //       categories: categories
-  //     });
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   });
-});
+travelRoutes.get(
+  "/photo/delete/*",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    const photoUrl = req.params[0];
+    Travel.findOneAndUpdate(
+      { photos: photoUrl },
+      { $pull: { photos: photoUrl } }
+    )
+      .then(travel => {
+        res.redirect("/travel/edit/" + travel._id);
+      })
+      .catch(error => console.log(error));
+  }
+);
 
 //delete a travel from 'your travels'
 travelRoutes.get("/travel/delete/:travelId", (req, res, next) => {

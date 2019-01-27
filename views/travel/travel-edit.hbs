@@ -1,4 +1,6 @@
-<form action="/travel/edit/{{travel._id}}" method="POST" id="edittravel" class="p-5 light-green">
+<h2 class="text-center mt-4 mb-4">Edit your experience</h2>
+
+<form action="/travel/edit/{{travel._id}}" method="POST" id="edittravel" enctype="multipart/form-data" class="p-5 light-green">
 
   <div class="form-group">
     <label for="title">Title</label><br>
@@ -25,33 +27,30 @@
       </select>
     </div>
   </div>
-
   <div class="form-group">
     <label for="description">Description</label><br>
     <textarea class="form-control w-50" id="description" id="description" name="description" rows="4" value={{travel.description}}
       required>{{travel.description}}</textarea>
   </div>
-
-  <div class="
-      form-group">
+  <div class="form-group">
     <label for="photos">Add pictures</label><br>
     <input id="photos" type="file" name="photos" value="{{travel.photos}}" multiple>
-    <div class="row p-3">
-      {{#each travel.photos}}
-      <div class="col-1 text-center mb-4">
-        <a href="#">
-          <img src={{this}} class="img-fluid rounded mb-1">
-        </a>
-        <div>
-          <button type="submit" class="btn btn-sm btn-danger"><a href="/photo/delete/{{this}}">Delete</a></button>
-        </div>
+  </div>
+  <div class="row">
+    {{#each travel.photos}}
+    <div class="col-1 text-center mb-4">
+      <a href="#">
+        <img src={{this}} class="img-fluid rounded mb-1">
+      </a>
+      <div>
+        <button type="submit" class="btn btn-sm btn-danger"><a href="/photo/delete/{{this}}">Delete</a></button>
       </div>
-      {{/each}}
     </div>
-
-    {{#if message}}
-    <div class="error-message text-center w-50 mb-3 p-2">{{ message }}</div>
-    {{/if}}
-
-    <button class="btn btn-primary" type="submit">Edit</button>
+    {{/each}}
+  </div>
+  {{#if message}}
+  <div class="error-message text-center w-50 mb-3 p-2">{{ message }}</div>
+  {{/if}}
+  <br>
+  <button class="btn btn-primary" type="submit">Edit</button>
 </form>

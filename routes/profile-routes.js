@@ -105,4 +105,32 @@ profileRoutes.post(
   }
 );
 
+// See all your travels you have created
+profileRoutes.get(
+  '/profile/yourtravels',
+    ensureLogin.ensureLoggedIn(), 
+    (req, res, next) => {
+      User.findOne({ _id: req.user._id })
+      .populate("travels")
+      .then(user => {
+        const travels = user.travels;
+        res.render("user/yourtravels", { travels: travels });
+      })
+      
+});
+
+// See all your favorite trips
+profileRoutes.get(
+  '/profile/yourfavorites',
+    ensureLogin.ensureLoggedIn(), 
+    (req, res, next) => {
+      Like.find({ userId: req.user._id })
+      .populate("travelId")
+      .then(likes => { 
+        const favorites = likes.map(e => e.travelId)
+        res.render("user/yourfavorites", { favorites: favorites });
+      })      
+});
+
+
 module.exports = profileRoutes;

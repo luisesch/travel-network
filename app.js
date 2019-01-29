@@ -20,6 +20,8 @@ const LocalStrategy = require("passport-local").Strategy;
 
 const flash = require("connect-flash");
 
+const MongoStore = require('connect-mongo')(session);
+
 mongoose
   .connect(
     "mongodb://localhost/travel-network",
@@ -47,7 +49,8 @@ app.use(
   session({
     secret: "our-passport-local-strategy-app",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
 

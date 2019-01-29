@@ -1,0 +1,15 @@
+<h2 class="text-center mt-4">Your Favorites</h2>
+
+<div class="row p-3">
+    {{#each favorites}}
+    <div class="col-xs-3 col-md-3 text-center mb-4">
+      <a href="/travel/{{this._id}}">
+        <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
+        <h6>{{this.title}}</h6>
+      </a>
+      <div>
+        <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
+      </div>
+    </div>
+    {{/each}}
+    </div>

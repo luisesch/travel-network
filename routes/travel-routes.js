@@ -39,12 +39,16 @@ travelRoutes.post(
   "/travel/add",
   uploadCloud.array("photos"), //upload multiple files
   (req, res, next) => {
-    //get url of each file and push to new array
-    let urlArray = [];
-    req.files.forEach(file => {
-      urlArray.push(file.url);
-      return;
-    });
+    //if no photo has been added, use default picture, else get url of each file and push to new array
+    if (req.files == "") {
+      urlArray = ["/images/default_travel.png"];
+    } else {
+      let urlArray = [];
+      req.files.forEach(file => {
+        urlArray.push(file.url);
+        return;
+      });
+    }
 
     const { title, category, start, description } = req.body;
 
@@ -254,6 +258,5 @@ travelRoutes.post(
     });
   }
 );
-
 
 module.exports = travelRoutes;

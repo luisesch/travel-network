@@ -88,42 +88,7 @@ travelRoutes.post(
 
 // show selected experience
 
-//find experience by id and render page
-travelRoutes.get(
-  "/travel/:travelId",
-  ensureLogin.ensureLoggedIn(),
-  (req, res, next) => {
-    let heart = "";
-    //check, if travel is liked by user
-    Like.count({
-      userId: req.user._id,
-      travelId: req.params.travelId
-    })
-      //if so, heart equals filled heart
-      .then(count => {
-        if (count > 0) {
-          //if it exists, delete like/unlike
-          // console.log("delete like");
-          heart = "/images/heart_filled.png";
-          console.log(heart);
-        } else {
-          //if not, heart equals unfilled heart
-          heart = "/images/heart.png";
-          console.log(heart);
-        }
-      })
-      .then(() => {
-        Travel.findById(req.params.travelId).then(travel => {
-          //necessary for the carousel (first item of array needs to be rendered individually)
-          const photoArray = travel.photos.slice(1);
-          res.render("travel/singleview", { travel, photoArray, heart });
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-);
+
 
 //edit existing travel/experience
 
@@ -267,4 +232,67 @@ travelRoutes.post(
   }
 );
 
+// See the collection of all trips (of all users) 
+travelRoutes.get(
+  '/travel/alltrips',
+    (req, res, next) => {
+      Travel.find()
+      .then(travels => {
+        console.log("TRAVELSSSSSSSSS",travels)
+        res.render("travel/alltrips", {travels: travels});
+      }) .catch(error => {
+        console.log(error);
+      });
+});
+
+//find experience by id and render page
+travelRoutes.get(
+  "/travel/:travelId",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    let heart = "";
+    //check, if travel is liked by user
+    Like.count({
+      userId: req.user._id,
+      travelId: req.params.travelId
+    })
+      //if so, heart equals filled heart
+      .then(count => {
+        if (count > 0) {
+          //if it exists, delete like/unlike
+          // console.log("delete like");
+          heart = "/images/heart_filled.png";
+          console.log(heart);
+        } else {
+          //if not, heart equals unfilled heart
+          heart = "/images/heart.png";
+          console.log(heart);
+        }
+      })
+      .then(() => {
+        Travel.findById(req.params.travelId).then(travel => {
+          //necessary for the carousel (first item of array needs to be rendered individually)
+          const photoArray = travel.photos.slice(1);
+          res.render("travel/singleview", { travel, photoArray, heart });
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+);
+
 module.exports = travelRoutes;
+
+// profileRoutes.get(
+//   '/profile/yourtravels',
+//     ensureLogin.ensureLoggedIn(), 
+//     (req, res, next) => {
+//       User.findOne({ _id: req.user._id })
+//       .populate("travels")
+//       .then(user => {
+//         const travels = user.travels;
+//         res.render("user/yourtravels", { travels: travels });
+//       })
+      
+// });

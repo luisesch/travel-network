@@ -16,10 +16,12 @@
 
   <nav class="navbar navbar-light bg-light justify-content-between">
     <a href="/" class="navbar-brand">Home</a>
+   
     <form class="form-inline">
+       <a class="nav-item nav-link" href="/travel/alltrips">All trips</a>
       {{#if user}}
       <a class="nav-item nav-link" href="/profile">Profile</a>
-      <a class="nav-item nav-link" href="/profile/yourtravels">Travels</a>
+      <a class="nav-item nav-link" href="/profile/yourtravels">My trips</a>
       <a class="nav-item nav-link" href="/profile/yourfavorites">Favorites</a>
       <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/logout">Logout</a></button>
       {{else}}

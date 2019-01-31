@@ -40,14 +40,13 @@ travelRoutes.post(
   ensureLogin.ensureLoggedIn(),
   uploadCloud.array("photos"), //upload multiple files
   (req, res, next) => {
+    let urlArray = [];
     //if no photo has been added, use default picture, else get url of each file and push to new array
     if (req.files == "") {
-      urlArray = ["/images/default_travel.png"];
+      urlArray.push("/images/default_travel.png");
     } else {
-      let urlArray = [];
       req.files.forEach(file => {
         urlArray.push(file.url);
-        return;
       });
     }
 

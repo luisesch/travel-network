@@ -7,6 +7,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: black;
+}
+
 button a {
   text-decoration: none;
   color: white;
@@ -17,8 +21,9 @@ label {
 }
 
 .user-travels img,
-.user-favorites img {
-  height: 150px;
+.user-favorites img,
+.experiences-index img {
+  height: 200px;
 }
 
 .search-form {

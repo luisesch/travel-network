@@ -2,7 +2,8 @@ body {
   font-family: "Source Sans Pro", sans-serif; }
 
 a {
-  color: #00b7ff; }
+  color: black;
+  text-decoration: none; }
 
 button a {
   text-decoration: none;
@@ -10,6 +11,10 @@ button a {
 
 label {
   font-weight: bold; }
+
+.user-travels img,
+.user-favorites img {
+  height: 150px; }
 
 .search-form {
   background-color: #d8e6df;

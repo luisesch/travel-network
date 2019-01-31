@@ -37,6 +37,7 @@ travelRoutes.get(
 //get data from form, create new travel and add to database
 travelRoutes.post(
   "/travel/add",
+  ensureLogin.ensureLoggedIn(),
   uploadCloud.array("photos"), //upload multiple files
   (req, res, next) => {
     //if no photo has been added, use default picture, else get url of each file and push to new array
@@ -148,6 +149,7 @@ travelRoutes.get(
 //update the edited travel in the database
 travelRoutes.post(
   "/travel/edit/:travelId",
+  ensureLogin.ensureLoggedIn(),
   uploadCloud.array("photos"),
   (req, res, next) => {
     const { title, description, start, category } = req.body;
@@ -155,18 +157,18 @@ travelRoutes.post(
     let currentPhotos = [];
 
     if (category == null) {
-      res.render("travel/travel-edit", {
-        cities: cities,
-        categories: categories,
-        message: "Choose at least one category."
+      Travel.findById(travid).then(travel => {
+        res.render("travel/travel-edit", {
+          travel: travel,
+          cities: cities,
+          categories: categories,
+          message: "Choose at least one category."
+        });
       });
       return;
     }
 
-    //create one array with existing and new photos
-    Travel.findById(travid).then(travel => {
-      currentPhotos.push(travel.photos);
-    });
+    //create an array with new photos
     req.files.forEach(file => {
       currentPhotos.push(file.url);
     });
@@ -174,12 +176,12 @@ travelRoutes.post(
     Travel.update(
       { _id: req.params.travelId },
       {
+        $push: { photos: currentPhotos },
         $set: {
           title: title,
           description: description,
           start: start,
-          category: category,
-          photos: currentPhotos
+          category: category
         }
       }
     )
@@ -210,15 +212,19 @@ travelRoutes.get(
 );
 
 //delete a travel from 'your travels'
-travelRoutes.get("/travel/delete/:travelId", (req, res, next) => {
-  Travel.findByIdAndRemove(req.params.travelId)
-    .then(travel => {
-      res.redirect("/profile");
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
+travelRoutes.get(
+  "/travel/delete/:travelId",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    Travel.findByIdAndRemove(req.params.travelId)
+      .then(travel => {
+        res.redirect("/profile");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+);
 
 //like
 
@@ -226,6 +232,9 @@ travelRoutes.post(
   "/like/:travelId",
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
+    //get current url
+    const backUrl = req.header("Referer");
+
     //check, if like already exists
     Like.count({
       userId: req.user._id,
@@ -237,7 +246,7 @@ travelRoutes.post(
         Like.findOneAndDelete({
           userId: req.user._id,
           travelId: req.params.travelId
-        }).then(() => res.redirect("/travel/" + req.params.travelId));
+        }).then(() => res.redirect(backUrl));
       } else {
         //if it doesn't exist, create new like
         // console.log("add like");

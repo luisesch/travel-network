@@ -1,16 +1,21 @@
 <h2 class="text-center mt-4">Your travels</h2>
 
-  <div class="row p-3">
-    {{#each travels}}
-    <div class="col-xs-3 col-md-3 text-center mb-4">
-      <a href="/travel/{{this._id}}">
-        <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
-        <h6>{{this.title}}</h6>
-      </a>
-      <div>
-        <button type="submit" class="btn btn-sm btn-primary"><a href="/travel/edit/{{this._id}}">Edit</a></button>
-        <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
-      </div>
+<div class="row p-3 user-travels">
+  {{#each travels}}
+  <div class="col-xs-3 col-md-3 text-center mb-4">
+    <a href="/travel/{{this._id}}">
+      <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
+      <h6>{{this.title}}</h6>
+    </a>
+    <div>
+      <button type="submit" class="btn btn-sm btn-primary"><a href="/travel/edit/{{this._id}}">Edit</a></button>
+      <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
     </div>
-    {{/each}}
- 
+  </div>
+  {{/each}}
+
+  <div class="col-xs-3 col-md-3 text-center mb-4">
+    <a href="/travel/add"><img src="/images/plus_icon.png" class="img-fluid rounded mb-1"></a>
+    <h6>Add new travel</h6>
+  </div>
+</div>

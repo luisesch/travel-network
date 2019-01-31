@@ -51,17 +51,13 @@
         <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
         <h6>{{this.title}}</h6>
       </a>
-      <div>
-        <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
-      </div>
+      <form class="px-0 form-group" action="/like/{{this._id}}" method="post">
+        <button type="submit" class="btn btn-sm btn-danger">Unlike</button>
+      </form>
     </div>
     {{/each}}
     <div class="col-xs-3 col-md-3 text-center mb-4">
       <a href="#"><img src="/images/magnifier_icon.png" class="img-fluid rounded mb-1"></a>
       <h6>Get more inspiration</h6>
     </div>
-</section>
-
-<section class="edit-profile px-5 mb-4 text-right">
-  <button class="btn btn-primary"><a href="/logout">Logout</a></button>
 </section>

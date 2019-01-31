@@ -155,18 +155,18 @@ travelRoutes.post(
     let currentPhotos = [];
 
     if (category == null) {
-      res.render("travel/travel-edit", {
-        cities: cities,
-        categories: categories,
-        message: "Choose at least one category."
+      Travel.findById(travid).then(travel => {
+        res.render("travel/travel-edit", {
+          travel: travel,
+          cities: cities,
+          categories: categories,
+          message: "Choose at least one category."
+        });
       });
       return;
     }
 
-    //create one array with existing and new photos
-    Travel.findById(travid).then(travel => {
-      currentPhotos.push(travel.photos);
-    });
+    //create an array with new photos
     req.files.forEach(file => {
       currentPhotos.push(file.url);
     });
@@ -174,12 +174,12 @@ travelRoutes.post(
     Travel.update(
       { _id: req.params.travelId },
       {
+        $push: { photos: currentPhotos },
         $set: {
           title: title,
           description: description,
           start: start,
-          category: category,
-          photos: currentPhotos
+          category: category
         }
       }
     )
@@ -226,6 +226,9 @@ travelRoutes.post(
   "/like/:travelId",
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
+    //get current url
+    const backUrl = req.header("Referer");
+
     //check, if like already exists
     Like.count({
       userId: req.user._id,
@@ -237,7 +240,7 @@ travelRoutes.post(
         Like.findOneAndDelete({
           userId: req.user._id,
           travelId: req.params.travelId
-        }).then(() => res.redirect("/travel/" + req.params.travelId));
+        }).then(() => res.redirect(backUrl));
       } else {
         //if it doesn't exist, create new like
         // console.log("add like");

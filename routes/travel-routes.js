@@ -37,6 +37,7 @@ travelRoutes.get(
 //get data from form, create new travel and add to database
 travelRoutes.post(
   "/travel/add",
+  ensureLogin.ensureLoggedIn(),
   uploadCloud.array("photos"), //upload multiple files
   (req, res, next) => {
     //if no photo has been added, use default picture, else get url of each file and push to new array
@@ -148,6 +149,7 @@ travelRoutes.get(
 //update the edited travel in the database
 travelRoutes.post(
   "/travel/edit/:travelId",
+  ensureLogin.ensureLoggedIn(),
   uploadCloud.array("photos"),
   (req, res, next) => {
     const { title, description, start, category } = req.body;
@@ -210,15 +212,19 @@ travelRoutes.get(
 );
 
 //delete a travel from 'your travels'
-travelRoutes.get("/travel/delete/:travelId", (req, res, next) => {
-  Travel.findByIdAndRemove(req.params.travelId)
-    .then(travel => {
-      res.redirect("/profile");
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
+travelRoutes.get(
+  "/travel/delete/:travelId",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    Travel.findByIdAndRemove(req.params.travelId)
+      .then(travel => {
+        res.redirect("/profile");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+);
 
 //like
 

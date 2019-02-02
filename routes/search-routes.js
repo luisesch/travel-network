@@ -16,7 +16,7 @@ const categories = [
   "ship",
   "hiking",
   "sea",
-  "city Trip",
+  "city trip",
   "pilgrimage"
 ];
 
@@ -27,8 +27,20 @@ const categories = [
 searchRoutes.post("/results", (req, res) => {
   const start = req.body.start;
   const category = req.body.category;
-  // res.send(`Start: ${start}`);
-  Travel.find({ start: start, category: category })
+
+  if (start && category) {
+    query = { start: start, category: category }
+  } else if (start) {
+    query = { start: start }
+  } else if (category) {
+    query = { category: category }
+  } else {
+    query = {}
+  }
+  console.log('query', query)
+
+
+  Travel.find(query)
     .then(travels => {
       res.render("search/results", { travels });
     })

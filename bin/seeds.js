@@ -18,14 +18,14 @@ const travels = [
     photos: "/images/experiences_train.jpeg",
     description: "Mit Zug und Fahrrad nach Brodowin- das Gute kann so nah sein",
     start: "Berlin",
-    category: "bike"
+    category: "city trip"
   },
   {
     title: "Klettern in Sachsen",
     photos: "/images/experiences_train.jpeg",
     description:
       "Tolle Aussicht im Elbsandsteingebirge und Knödel in Tschechien sind einfach yammi",
-    start: "Dresden",
+    start: "Hamburg",
     category: "train"
   }
 ];

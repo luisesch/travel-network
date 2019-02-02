@@ -12,15 +12,15 @@ const uploadCloud = require("../config/cloudinary.js");
 
 const cities = ["Berlin", "Hamburg", "Köln", "München"];
 const categories = [
-  "Travel with kids",
-  "Panorama",
-  "Train",
-  "Bike",
-  "Ship",
-  "Hiking",
-  "Sea",
-  "City Trip",
-  "Pilgrimage"
+  "travel with kids",
+  "panorama",
+  "train",
+  "bike",
+  "ship",
+  "hiking",
+  "sea",
+  "city trip",
+  "pilgrimage"
 ];
 
 //add new experience

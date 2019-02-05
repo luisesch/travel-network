@@ -8,7 +8,7 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
-const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+
 
 // User model
 const User = require("./models/user");
@@ -19,13 +19,16 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
+//authentification with google account
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+
 const flash = require("connect-flash");
 
 const MongoStore = require('connect-mongo')(session);
 
 mongoose
   .connect(
-    "mongodb://localhost/travel-network",
+    process.env.MONGODB_URI,
     { useNewUrlParser: true }
   )
   .then(x => {

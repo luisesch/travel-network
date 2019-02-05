@@ -7,6 +7,7 @@ const userSchema = new Schema(
     password: String,
     photo: { type: String, default: "/images/default_profile.jpg" },
     email: String,
+    googleID: String,
     travels: [{ type: Schema.Types.ObjectId, ref: "Travel" }]
   },
   {

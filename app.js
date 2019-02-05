@@ -8,6 +8,7 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
 // User model
 const User = require("./models/user");
@@ -138,5 +139,40 @@ app.use("/", travelRoutes);
 
 const searchRoutes = require("./routes/search-routes");
 app.use("/", searchRoutes);
+
+//social-login with Google
+passport.use(new GoogleStrategy({
+  clientID: "666842047314-rtatplf6ucuth8tctmohv41hinhv5i96.apps.googleusercontent.com",
+  clientSecret: "uS2z-YP-Jhnco7EabOR-kutn",
+  callbackURL: "/auth/google/callback"
+}, (accessToken, refreshToken, profile, done) => {
+  User.findOne({ googleID: profile.id })
+  .then((user, err) => {
+    if (err) {
+      return done(err);
+    }
+    if (user) {
+      return done(null, user);
+    }
+
+    const newUser = new User({
+      googleID: profile.id
+    });
+
+    newUser.save()
+    .then(user => {
+      done(null, newUser);
+    })
+  })
+  .catch(error => {
+    console.log(error)
+  })
+
+}));
+
+
+
+
+
 
 module.exports = app;

@@ -237,13 +237,14 @@ travelRoutes.get(
   '/travel/alltrips',
     (req, res, next) => {
       Travel.find()
-      .then(travels => {
-        console.log("TRAVELSSSSSSSSS",travels)
+      .sort("-createdAt")
+      .exec(function(err, travels)
+      // .then(travels => 
+        {
         res.render("travel/alltrips", {travels: travels});
-      }) .catch(error => {
-        console.log(error);
-      });
+      })
 });
+
 
 //find experience by id and render page
 travelRoutes.get(

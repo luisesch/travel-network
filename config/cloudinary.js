@@ -8,6 +8,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
+console.log(cloudinary)
+
 var storage = cloudinaryStorage({
   cloudinary: cloudinary,
   folder: "travel-network", // The name of the folder in cloudinary
@@ -16,6 +18,8 @@ var storage = cloudinaryStorage({
     cb(null, file.originalname); // The file on cloudinary would have the same name as the original file name
   }
 });
+
+console.log("DEBUG")
 
 const uploadCloud = multer({ storage: storage });
 

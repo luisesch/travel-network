@@ -46,7 +46,10 @@ travelRoutes.post(
       urlArray.push("/images/default_travel.png");
     } else {
       req.files.forEach(file => {
-        urlArray.push(file.url);
+        // hack to add a "a_exif" at the right point in the URL
+        let nonRotatedUrlArr = file.url.split("/");
+        nonRotatedUrlArr.splice(6, 0, "a_exif");
+        urlArray.push(nonRotatedUrlArr.join("/"));
       });
     }
 
@@ -87,8 +90,6 @@ travelRoutes.post(
 );
 
 // show selected experience
-
-
 
 //edit existing travel/experience
 
@@ -287,7 +288,7 @@ module.exports = travelRoutes;
 
 // profileRoutes.get(
 //   '/profile/yourtravels',
-//     ensureLogin.ensureLoggedIn(), 
+//     ensureLogin.ensureLoggedIn(),
 //     (req, res, next) => {
 //       User.findOne({ _id: req.user._id })
 //       .populate("travels")
@@ -295,5 +296,5 @@ module.exports = travelRoutes;
 //         const travels = user.travels;
 //         res.render("user/yourtravels", { travels: travels });
 //       })
-      
+
 // });

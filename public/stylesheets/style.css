@@ -15,11 +15,6 @@ button a {
 label {
   font-weight: bold; }
 
-.user-travels img,
-.user-favorites img,
-.experiences-index img {
-  height: 150px; }
-
 .search-form {
   background-color: #d8e6df;
   width: 45%;
@@ -63,5 +58,10 @@ label {
 
 .heart-button {
   background-color: white; }
+
+.card-img-top {
+  width: 100%;
+  height: 30vh;
+  object-fit: cover; }
 
 /*# sourceMappingURL=style.css.map */

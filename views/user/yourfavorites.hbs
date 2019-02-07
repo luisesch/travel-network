@@ -2,18 +2,22 @@
 
 <div class="row p-3 user-favorites">
   {{#each favorites}}
-  <div class="col-xs-3 col-md-3 text-center mb-4">
+  <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
     <a href="/travel/{{this._id}}">
-      <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
-      <h6>{{this.title}}</h6>
-    </a>
-    <div>
+      <img src={{this.photos.[0]}} class="card-img-top"></a>
+    <div class="card-body">
+      <a href="/travel/{{this._id}}">
+        <h6>{{this.title}}</h6>
+      </a>
       <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Unlike</a></button>
     </div>
   </div>
   {{/each}}
-  <div class="col-xs-3 col-md-3 text-center mb-4">
-    <a href="/travel/alltrips"><img src="/images/magnifier_icon.png" class="img-fluid rounded mb-1"></a>
-    <h6>Get more inspiration</h6>
+  <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
+    <a href="/travel/alltrips"><img src="/images/magnifier_icon.png" class="card-img-top">
+      <div class="card-body">
+        <h6>Get more inspiration</h6>
+      </div>
+    </a>
   </div>
 </div>

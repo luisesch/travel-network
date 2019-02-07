@@ -233,17 +233,19 @@ travelRoutes.post(
   }
 );
 
-// See the collection of all trips (of all users)
-travelRoutes.get("/travel/alltrips", (req, res, next) => {
-  Travel.find()
-    .then(travels => {
-      console.log("TRAVELSSSSSSSSS", travels);
-      res.render("travel/alltrips", { travels: travels });
-    })
-    .catch(error => {
-      console.log(error);
-    });
+// See the collection of all trips (of all users) 
+travelRoutes.get(
+  '/travel/alltrips',
+    (req, res, next) => {
+      Travel.find()
+      .sort("-createdAt")
+      .exec(function(err, travels)
+      // .then(travels => 
+        {
+        res.render("travel/alltrips", {travels: travels});
+      })
 });
+
 
 //find experience by id and render page
 travelRoutes.get(

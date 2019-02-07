@@ -22,21 +22,26 @@
   </div>
   <div class="row p-3">
     {{#each travels}}
-    <div class="col-xs-3 col-md-3 text-center mb-4">
+    <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
       <a href="/travel/{{this._id}}">
-        <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
-        <h6>{{this.title}}</h6>
+        <img class="card-img-top" src={{this.photos.[0]}}>
       </a>
-      <div>
+      <div class="card-body">
+        <a href="/travel/{{this._id}}">
+          <h5 class="card-title">{{this.title}}</h5>
+        </a>
         <button type="submit" class="btn btn-sm btn-primary"><a href="/travel/edit/{{this._id}}">Edit</a></button>
         <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
       </div>
     </div>
     {{/each}}
-    <div class="col-xs-3 col-md-3 text-center mb-4">
-      <a href="/travel/add"><img src="/images/plus_icon.png" class="img-fluid rounded mb-1"></a>
-      <h6>Add new travel</h6>
+    <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
+      <a href="/travel/add"><img src="/images/plus_icon.png" class="card-img-top"></a>
+      <div class="card-body">
+        <h5>Add new travel</h5>
+      </div>
     </div>
+  </div>
 </section>
 
 <section class="user-favorites px-5 pt-4 mb-4 light-green">
@@ -46,18 +51,26 @@
   </div>
   <div class="row p-3">
     {{#each favorites}}
-    <div class="col-xs-3 col-md-3 text-center mb-4">
+    <div class="card mx-4 mb-4" style="width: 15rem;">
       <a href="/travel/{{this._id}}">
-        <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
-        <h6>{{this.title}}</h6>
-      </a>
-      <form class="px-0 form-group" action="/like/{{this._id}}" method="post">
-        <button type="submit" class="btn btn-sm btn-danger">Unlike</button>
-      </form>
+        <img class="card-img-top" src={{this.photos.[0]}}> </a>
+      <div class="card-body">
+        <a href="/travel/{{this._id}}">
+          <h5 class="card-title">{{this.title}}</h5>
+        </a>
+        <form class="px-0 form-group" action="/like/{{this._id}}" method="post">
+          <button type="submit" class="btn btn-sm btn-danger">Unlike</button>
+        </form>
+      </div>
     </div>
     {{/each}}
-    <div class="col-xs-3 col-md-3 text-center mb-4">
-      <a href="/travel/alltrips"><img src="/images/magnifier_icon.png" class="img-fluid rounded mb-1"></a>
-      <h6>Get more inspiration</h6>
+    <div class="card mx-4 mb-4" style="width: 15rem;">
+      <img src="/images/magnifier_icon.png" class="card-img-top"></a>
+      <div class="card-body">
+        <a href="/travel/alltrips">
+          <h5>Get more inspiration</h5>
+        </a>
+      </div>
     </div>
+  </div>
 </section>

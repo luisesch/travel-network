@@ -93,7 +93,11 @@ profileRoutes.post(
   "/profile/:userId/editpicture",
   uploadCloud.single("profilepic"),
   (req, res, next) => {
-    const profilepic = req.file.url;
+    // hack to add a "a_exif" at the right point in the URL
+    let nonRotatedUrlArr = req.file.url.split("/");
+    nonRotatedUrlArr.splice(6, 0, "a_exif");
+    profilepic = nonRotatedUrlArr.join("/");
+    // console.log(profilepic);
 
     User.update({ _id: req.params.userId }, { $set: { photo: profilepic } })
       .then(() => {
@@ -107,30 +111,30 @@ profileRoutes.post(
 
 // See all your travels you have created
 profileRoutes.get(
-  '/profile/yourtravels',
-    ensureLogin.ensureLoggedIn(), 
-    (req, res, next) => {
-      User.findOne({ _id: req.user._id })
+  "/profile/yourtravels",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    User.findOne({ _id: req.user._id })
       .populate("travels")
       .then(user => {
         const travels = user.travels;
         res.render("user/yourtravels", { travels: travels });
-      })
-      
-});
+      });
+  }
+);
 
 // See all your favorite trips
 profileRoutes.get(
-  '/profile/yourfavorites',
-    ensureLogin.ensureLoggedIn(), 
-    (req, res, next) => {
-      Like.find({ userId: req.user._id })
+  "/profile/yourfavorites",
+  ensureLogin.ensureLoggedIn(),
+  (req, res, next) => {
+    Like.find({ userId: req.user._id })
       .populate("travelId")
-      .then(likes => { 
-        const favorites = likes.map(e => e.travelId)
+      .then(likes => {
+        const favorites = likes.map(e => e.travelId);
         res.render("user/yourfavorites", { favorites: favorites });
-      })      
-});
-
+      });
+  }
+);
 
 module.exports = profileRoutes;

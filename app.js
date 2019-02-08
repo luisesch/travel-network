@@ -27,8 +27,8 @@ const MongoStore = require("connect-mongo")(session);
 
 mongoose
   .connect(
-    process.env.MONGODB_URI,
-    // "mongodb://localhost/travel-network",
+    // process.env.MONGODB_URI,
+    "mongodb://localhost/travel-network",
     { useNewUrlParser: true }
   )
   .then(x => {

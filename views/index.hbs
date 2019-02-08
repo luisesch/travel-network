@@ -2,7 +2,8 @@
   <div class="search-form p-3 col-8">
 
     <h3>Ready for the next adventure?</h3><br>
-    If you are looking to inspiration for your next trip and also want to inspirate other with your experience you are absolutly right here! Welcome to THE travel network!
+    If you are looking to inspiration for your next trip and also want to inspirate other with your experience you are
+    absolutly right here! Welcome to THE travel network!
     <form action="/results" method="POST">
       <div class="form-group row align-items-center">
         <div class="col-auto input-category">
@@ -32,16 +33,21 @@
   <h3>Latest travels</h3>
   <div class="row p-3">
     {{#each threeNewest}}
-    <div class="col-xs-3 col-md-3 text-center mb-4">
+    <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
       <a href="/travel/{{this._id}}">
-        <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
-        <h6>{{this.title}}</h6>
+        <img src={{this.photos.[0]}} class="card-img-top">
+        <div class="card-body">
+          <h6 class="card-title">{{this.title}}</h6>
+        </div>
       </a>
     </div>
     {{/each}}
-    <div class="col-xs-3 col-md-3 text-center mb-4">
-      <a href="/travel/add"><img src="/images/plus_icon.png" class="img-fluid rounded mb-1"></a>
-      <h6>Add your own experience</h6>
+    <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
+      <a href="/travel/add"><img src="/images/plus_icon.png" class="card-img-top">
+        <div class="card-body">
+          <h6 class="card-title">Add your own experience</h6>
+        </div>
+      </a>
     </div>
   </div>
 </section>

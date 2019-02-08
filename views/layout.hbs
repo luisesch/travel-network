@@ -14,15 +14,15 @@
 
 <body>
 
-  <nav class="navbar navbar-light bg-light justify-content-between">
+
+<nav class="navbar navbar-light bg-light justify-content-between navbar-fixed-top">
     <a href="/" class="navbar-brand">Home</a>
-   
     <form class="form-inline">
-       <a class="nav-item nav-link" href="/travel/alltrips">All trips</a>
+      <a class="nav-item nav-link" href="/travel/alltrips">All trips</a>
       {{#if user}}
-      <a class="nav-item nav-link" href="/profile">Profile</a>
       <a class="nav-item nav-link" href="/profile/yourtravels">My trips</a>
       <a class="nav-item nav-link" href="/profile/yourfavorites">Favorites</a>
+      <a class="nav-item nav-link" href="/profile">Profile</a>
       <button class="btn btn-success my-2 my-sm-0" type="submit"><a href="/logout">Logout</a></button>
       {{else}}
       <button class="btn btn-success mr-sm-2" type="submit"><a href="/signup">Signup</a></button>
@@ -31,9 +31,111 @@
     </form>
   </nav>
 
+
   <div class="container-fluid p-0">
     {{{ body }}}
   </div>
+
+  <footer class="page-footer font-small light-green pt-2">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+
+      <!-- Footer links -->
+      <div class="row text-center text-md-left mt-2 pb-2">
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-2 pr-5">
+          <h6 class="text-uppercase mb-2 font-weight-bold">About</h6>
+          <p>This website has been created by Janine and Luise as the second project of their part-time web-development bootcamp at ironhack in Berlin.</p>
+        </div>
+        <!-- Grid column -->
+
+        <hr class="w-100 clearfix d-md-none">
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-2">
+          <h6 class="text-uppercase mb-2 font-weight-bold">Go to</h6>
+          <p>
+            <a href="/">Search</a>
+          </p>
+          <p>
+            <a href="/travel/alltrips">All trips</a>
+          </p>
+          <p>
+            <a href="/profile">Your profile</a>
+          </p>
+        </div>
+
+        <!-- Grid column -->
+        <hr class="w-100 clearfix d-md-none">
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-2">
+          <h6 class="text-uppercase mb-2 font-weight-bold">Contact</h6>
+          <p>Ironhack, Berlin</p>
+          <p>travel.network.ironhack@gmail.com</p>
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Footer links -->
+
+      <hr>
+
+      <!-- Grid row -->
+      <div class="row d-flex align-items-center">
+
+        <!-- Grid column -->
+        <div class="col-md-7 col-lg-8">
+
+          <!--Copyright-->
+          <p class="text-center text-md-left">© 2018 Copyright:
+              <strong> Janine & Luise – Ironhackers</strong>
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-5 col-lg-4 ml-lg-0">
+
+          <!-- Social buttons -->
+          <div class="text-center text-md-right">
+            <ul class="list-unstyled list-inline">
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-google-plus-g"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating btn-sm rgba-white-slight mx-1">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+  </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

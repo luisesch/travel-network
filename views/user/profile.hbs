@@ -1,7 +1,7 @@
 <h2 class="text-center mt-4 mb-4">Welcome to your profile, {{user.username}}</h2>
 
 
-<section class="user-info p-3 mb-5">
+<section class="user-info p-3 mb-5 light-green">
   <div class="row text-center">
     <div class="col-2"></div>
     <div class="col-8">
@@ -28,7 +28,7 @@
       </a>
       <div class="card-body">
         <a href="/travel/{{this._id}}">
-          <h5 class="card-title">{{this.title}}</h5>
+          <h6 class="card-title">{{this.title}}</h6>
         </a>
         <button type="submit" class="btn btn-sm btn-primary"><a href="/travel/edit/{{this._id}}">Edit</a></button>
         <button type="submit" class="btn btn-sm btn-danger"><a href="/travel/delete/{{this._id}}">Delete</a></button>
@@ -36,10 +36,11 @@
     </div>
     {{/each}}
     <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
-      <a href="/travel/add"><img src="/images/plus_icon.png" class="card-img-top"></a>
-      <div class="card-body">
-        <h5>Add new travel</h5>
-      </div>
+      <a href="/travel/add"><img src="/images/plus_icon.png" class="card-img-top">
+        <div class="card-body">
+          <h6>Add new travel</h6>
+        </div>
+      </a>
     </div>
   </div>
 </section>
@@ -56,7 +57,7 @@
         <img class="card-img-top" src={{this.photos.[0]}}> </a>
       <div class="card-body">
         <a href="/travel/{{this._id}}">
-          <h5 class="card-title">{{this.title}}</h5>
+          <h6 class="card-title">{{this.title}}</h6>
         </a>
         <form class="px-0 form-group" action="/like/{{this._id}}" method="post">
           <button type="submit" class="btn btn-sm btn-danger">Unlike</button>
@@ -65,10 +66,10 @@
     </div>
     {{/each}}
     <div class="card mx-4 mb-4" style="width: 15rem;">
-      <img src="/images/magnifier_icon.png" class="card-img-top"></a>
+      <a href="/travel/alltrips"><img src="/images/magnifier_icon.png" class="card-img-top"></a>
       <div class="card-body">
         <a href="/travel/alltrips">
-          <h5>Get more inspiration</h5>
+          <h6>Get more inspiration</h6>
         </a>
       </div>
     </div>

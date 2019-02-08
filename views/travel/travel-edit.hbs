@@ -4,10 +4,11 @@
 
   <div class="form-group">
     <label for="title">Title</label><br>
-    <input id="title" type="text" name="title" class="w-50" value={{travel.title}} required>
+    <input id="title" type="text" name="title" class="w-50" value="{{travel.title}}" required>
   </div>
 
-  <div class="form-group">
+  <div class="
+      form-group">
     <label for="category">Categories</label><br>
     {{#each categories}}
     <div class="form-check form-check-inline">
@@ -29,7 +30,7 @@
   </div>
   <div class="form-group">
     <label for="description">Description</label><br>
-    <textarea class="form-control w-50" id="description" id="description" name="description" rows="4" value={{travel.description}}
+    <textarea class="form-control w-50" id="description" id="description" name="description" rows="4" value="{{travel.description}}"
       required>{{travel.description}}</textarea>
   </div>
   <div class="form-group">

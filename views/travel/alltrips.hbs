@@ -1,26 +1,25 @@
 <h2 class="text-center mt-4">All trips</h2>
 
+<hr class="mx-5">
+
 <section class="experiences-index p-5">
-  <div class="row">
+  <div class="row p-3">
     {{#each travels}}
     <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
       <a href="/travel/{{this._id}}">
         <img class="card-img-top" src={{this.photos.[0]}}>
         <div class="card-body">
-          <h5 class="card-title">{{this.title}}</h5>
+          <h6 class="card-title">{{this.title}}</h6>
         </div>
       </a>
     </div>
     {{/each}}
   </div>
-  {{!-- <div class="row p-3">
-    {{#each travels}}
-    <div class="col-xs-3 col-md-3 text-center mb-4">
-      <a href="/travel/{{this._id}}">
-        <img src={{this.photos.[0]}} class="img-fluid rounded mb-1">
-        <h6>{{this.title}}</h6>
-      </a>
-    </div>
-    {{/each}}
-  </div> --}}
+  <div class="card mx-4 mb-4 light-green" style="width: 15rem;">
+    <a href="/travel/add"><img src="/images/plus_icon.png" class="card-img-top">
+      <div class="card-body">
+        <h6>Add your own trip</h6>
+      </div>
+    </a>
+  </div>
 </section>

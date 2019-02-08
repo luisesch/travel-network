@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row heartrow">
   <div class="col-2"></div>
   <div class="col-8">
     <h2 class="text-center mt-4 mb-4">{{travel.title}}</h2>
@@ -35,12 +35,14 @@
 
 <section class="m-5">
   <div class="px-5">
-    <p class="font-weight-bold">Where I started:</p>
-    <p>{{travel.start}}</p><br>
-    <p class="font-weight-bold">What I did:</p>
+    <h5 class="font-weight-bold">Where I started:</h5>
+    <p>{{travel.start}}</p>
+    <hr>
+    <h5 class="font-weight-bold">What I did:</h5>
     <p>{{travel.description}}</p>
+    <hr>
     {{#each travel.category}}
-    <button class="btn btn-light">{{this}}</button>
+    <button class="btn btn-light light-green text-white">{{this}}</button>
     {{/each}}
     <br>
     <button class="btn btn-primary mt-4" type="submit"><a href="/travel/edit/{{travel._id}}" class="edit-button">EDIT</a></button>

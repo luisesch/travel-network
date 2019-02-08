@@ -1,14 +1,12 @@
 <section class="top-index p-5 row">
-  <div class="search-form p-3 col-8">
+  <div class="search-form p-3 col-8 light-green">
 
-    <h3>Ready for the next adventure?</h3><br>
-    If you are looking to inspiration for your next trip and also want to inspirate other with your experience you are
-    absolutly right here! Welcome to THE travel network!
+    <h3>Ready for your next adventure?</h3><br>
     <form action="/results" method="POST">
       <div class="form-group row align-items-center">
         <div class="col-auto input-category">
           <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="start">
-            <option value="">Where do you want to start...</option>
+            <option value="">Where would you like to start...</option>
             {{#each cities}}
             <option value={{this}}>{{this}}</option>
             {{/each}}
@@ -28,6 +26,14 @@
     </form>
   </div>
 </section>
+
+<section class="about px-5 pt-3 pb-2">
+<p>Ever feel like you'd like to fly less, travel greener, to just pack your bags and start your trip right outside your door? <br><br>
+  The travel network offers you inspiration and lets you share your own adventures with others. The focus is not on where you would like to go, but where you would like to start your trip.
+  Just enter your starting point, browse trips and get inspired by other travelers' ideas and memories.
+</p>
+</section>
+
 
 <section class="experiences-index p-5">
   <h3>Latest travels</h3>

@@ -15,8 +15,15 @@ button a {
 label {
   font-weight: bold; }
 
+footer h6 {
+  color: white; }
+
+hr {
+  height: 2px;
+  color: #d8e6df;
+  background: #d8e6df; }
+
 .search-form {
-  background-color: #d8e6df;
   width: 45%;
   border-radius: 10px; }
 
@@ -28,6 +35,9 @@ label {
   background-repeat: no-repeat;
   background-size: cover; }
 
+.about {
+  border-bottom: solid 7px #d8e6df; }
+
 .responsive-width {
   font-size: 2.5vw; }
 
@@ -35,9 +45,6 @@ label {
   background-color: coral;
   color: white;
   border-radius: 2px; }
-
-.user-info {
-  background-color: #d8e6df; }
 
 .profile-pic {
   width: 15%;
@@ -63,5 +70,15 @@ label {
   width: 100%;
   height: 30vh;
   object-fit: cover; }
+
+.card {
+  border: none;
+  border-radius: 0px;
+  background-color: #e6ddcf; }
+
+@media only screen and (max-width: 700px) {
+  .heartrow {
+    width: 80%;
+    text-align: right; } }
 
 /*# sourceMappingURL=style.css.map */

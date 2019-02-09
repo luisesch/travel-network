@@ -79,9 +79,9 @@ authRoutes.post("/signup", (req, res, next) => {
               from: '"Travel Network" <travel.network.ironhack@gmail.com>',
               to: email,
               subject: "Please verify your email address!",
-              text: "http://localhost:3000/auth/confirm/" + confirmationCode,
+              text: "http://travel-network.herokuapp.com/auth/confirm/" + confirmationCode,
               html: templates.templateExample(
-                "http://localhost:3000/auth/confirm/" + confirmationCode
+                "http://travel-network.herokuapp.com/auth/confirm/" + confirmationCode
               )
             })
             .then(() => {

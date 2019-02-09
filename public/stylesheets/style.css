@@ -1,5 +1,6 @@
 body {
-  font-family: "Source Sans Pro", sans-serif; }
+  font-family: "Source Sans Pro", sans-serif;
+  height: 100%; }
 
 a {
   color: black;
@@ -14,6 +15,9 @@ button a {
 
 label {
   font-weight: bold; }
+
+.fixfooter {
+  min-height: 50vh; }
 
 footer h6 {
   color: white; }

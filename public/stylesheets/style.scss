@@ -1,5 +1,6 @@
 body {
   font-family: "Source Sans Pro", sans-serif;
+  height: 100%;
 }
 
 a {
@@ -20,14 +21,18 @@ label {
   font-weight: bold;
 }
 
+.fixfooter {
+  min-height: 50vh;
+}
+
 footer h6 {
-  color: white
+  color: white;
 }
 
 hr {
   height: 2px;
   color: #d8e6df;
-  background: #d8e6df
+  background: #d8e6df;
 }
 
 .search-form {
@@ -46,7 +51,7 @@ hr {
 }
 
 .about {
-  border-bottom: solid 7px #d8e6df
+  border-bottom: solid 7px #d8e6df;
 }
 
 .responsive-width {
@@ -94,12 +99,12 @@ hr {
 .card {
   border: none;
   border-radius: 0px;
-  background-color: #e6ddcf
+  background-color: #e6ddcf;
 }
 
 @media only screen and (max-width: 700px) {
   .heartrow {
-  width: 80%;
-  text-align: right
-}
+    width: 80%;
+    text-align: right;
+  }
 }

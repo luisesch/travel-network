@@ -152,6 +152,7 @@ passport.use(
       callbackURL: "/auth/google/callback"
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log("profile", profile);
       User.findOne({ googleID: profile.id })
         .then((user, err) => {
           if (err) {
@@ -162,7 +163,8 @@ passport.use(
           }
 
           const newUser = new User({
-            googleID: profile.id
+            googleID: profile.id,
+            username: profile._json.name.givenName
           });
 
           newUser.save().then(user => {

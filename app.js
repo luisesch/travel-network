@@ -147,12 +147,12 @@ app.use("/", searchRoutes);
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-        "666842047314-rtatplf6ucuth8tctmohv41hinhv5i96.apps.googleusercontent.com",
-      clientSecret: "uS2z-YP-Jhnco7EabOR-kutn",
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
       callbackURL: "/auth/google/callback"
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log("profile", profile);
       User.findOne({ googleID: profile.id })
         .then((user, err) => {
           if (err) {
@@ -163,7 +163,8 @@ passport.use(
           }
 
           const newUser = new User({
-            googleID: profile.id
+            googleID: profile.id,
+            username: profile._json.name.givenName
           });
 
           newUser.save().then(user => {

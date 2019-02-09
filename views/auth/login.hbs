@@ -14,12 +14,12 @@
   {{/if}}
 
   <button class="btn btn-primary">Log in</button>
-<p>
-{{#unless user}}
-  <div>
-  <button class="btn btn-primary"><a href="/auth/google">Login mit GoogleAccount</a></button>
-  </div>
-{{/unless}}
+  <p>
+    {{#unless user}}
+    <div>
+      <button type="button" class="btn btn-primary"><a href="/auth/google">Login mit GoogleAccount</a></button>
+    </div>
+    {{/unless}}
 
 
 </form>

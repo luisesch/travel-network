@@ -233,19 +233,17 @@ travelRoutes.post(
   }
 );
 
-// See the collection of all trips (of all users) 
-travelRoutes.get(
-  '/travel/alltrips',
-    (req, res, next) => {
-      Travel.find()
-      .sort("-createdAt")
-      .exec(function(err, travels)
-      // .then(travels => 
-        {
-        res.render("travel/alltrips", {travels: travels});
-      })
+// See the collection of all trips (of all users)
+travelRoutes.get("/travel/alltrips", (req, res, next) => {
+  Travel.find()
+    .sort("-createdAt")
+    .exec(function(
+      err,
+      travels // .then(travels =>
+    ) {
+      res.render("travel/alltrips", { travels: travels });
+    });
 });
-
 
 //find experience by id and render page
 travelRoutes.get(
@@ -273,9 +271,18 @@ travelRoutes.get(
       })
       .then(() => {
         Travel.findById(req.params.travelId).then(travel => {
+          let canEdit = "";
+          if (req.user.travels.indexOf(req.params.travelId) > 0) {
+            canEdit = true;
+          }
           //necessary for the carousel (first item of array needs to be rendered individually)
           const photoArray = travel.photos.slice(1);
-          res.render("travel/singleview", { travel, photoArray, heart });
+          res.render("travel/singleview", {
+            travel,
+            photoArray,
+            heart,
+            canEdit
+          });
         });
       })
       .catch(err => {

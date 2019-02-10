@@ -44,6 +44,8 @@
     {{#each travel.category}}
     <button class="btn btn-light light-green text-white">{{this}}</button>
     {{/each}}
+    {{#if canEdit}}
     <br>
     <button class="btn btn-primary mt-4" type="submit"><a href="/travel/edit/{{travel._id}}" class="edit-button">EDIT</a></button>
+    {{/if}}
   </div>

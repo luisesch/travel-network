@@ -272,8 +272,10 @@ travelRoutes.get(
       .then(() => {
         Travel.findById(req.params.travelId).then(travel => {
           let canEdit = "";
+          console.log(req.params.travelId);
           req.user.travels.forEach(object => {
-            if (object.$oid == travel._id) {
+            console.log(object.$oid);
+            if (object.$oid == req.params.travelId) {
               canEdit = true;
             }
           });

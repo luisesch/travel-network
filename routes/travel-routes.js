@@ -183,7 +183,13 @@ travelRoutes.get(
   (req, res, next) => {
     Travel.findByIdAndRemove(req.params.travelId)
       .then(travel => {
-        res.redirect("/profile");
+        Like.deleteMany({
+          travelId: req.params.travelId
+        })
+          .then(() => res.redirect("/profile"))
+          .catch(error => {
+            console.log(error);
+          });
       })
       .catch(error => {
         console.log(error);

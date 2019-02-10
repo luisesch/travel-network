@@ -272,7 +272,9 @@ travelRoutes.get(
       .then(() => {
         Travel.findById(req.params.travelId).then(travel => {
           let canEdit = "";
-          if (req.user.travels.indexOf(req.params.travelId) > 0) {
+          if (
+            Object.values(req.user.travels).indexOf(req.params.travelId) > 0
+          ) {
             canEdit = true;
           }
           //necessary for the carousel (first item of array needs to be rendered individually)

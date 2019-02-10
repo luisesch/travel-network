@@ -272,13 +272,11 @@ travelRoutes.get(
       .then(() => {
         Travel.findById(req.params.travelId).then(travel => {
           let canEdit = "";
-          console.log(req.params.travelId);
+          // console.log(req.params.travelId);
           req.user.travels.forEach(object => {
-            console.log(object);
-            // console.log(ObjectId(object).valueOf());
-            // if (ObjectId(object).valueOf() == req.params.travelId) {
-            //   canEdit = true;
-            // }
+            if (object == req.params.travelId) {
+              canEdit = true;
+            }
           });
           //necessary for the carousel (first item of array needs to be rendered individually)
           const photoArray = travel.photos.slice(1);

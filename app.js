@@ -54,7 +54,9 @@ app.use(
     secret: "our-passport-local-strategy-app",
     resave: true,
     saveUninitialized: true,
-    store: MongoStore.create({ client: mongoose.connection.getClient() }),
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
+    }),
   })
 );
 

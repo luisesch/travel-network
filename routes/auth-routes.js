@@ -20,8 +20,8 @@ let transporter = nodemailer.createTransport({
   service: "Gmail",
   auth: {
     user: process.env.EMAIL_ADDRESS,
-    pass: process.env.EMAIL_PASSWORD
-  }
+    pass: process.env.EMAIL_PASSWORD,
+  },
 });
 
 //signup
@@ -52,7 +52,7 @@ authRoutes.post("/signup", (req, res, next) => {
 
   //check, if Username already exists
   User.findOne({ username })
-    .then(user => {
+    .then((user) => {
       if (user !== null) {
         res.render("auth/signup", { message: "The username already exists" });
         return;
@@ -65,11 +65,11 @@ authRoutes.post("/signup", (req, res, next) => {
         username: username,
         password: hashPass,
         email: email,
-        confirmationCode: confirmationCode
+        confirmationCode: confirmationCode,
       });
 
       //save user to database and redirect to home page
-      newUser.save(err => {
+      newUser.save((err) => {
         if (err) {
           res.render("auth/signup", { message: "Something went wrong" });
         } else {
@@ -79,23 +79,26 @@ authRoutes.post("/signup", (req, res, next) => {
               from: '"Travel Network" <travel.network.ironhack@gmail.com>',
               to: email,
               subject: "Please verify your email address!",
-              text: "http://travel-network.herokuapp.com/auth/confirm/" + confirmationCode,
+              text:
+                "http://travel-network.herokuapp.com/auth/confirm/" +
+                confirmationCode,
               html: templates.templateExample(
-                "http://travel-network.herokuapp.com/auth/confirm/" + confirmationCode
-              )
+                "http://travel-network.herokuapp.com/auth/confirm/" +
+                  confirmationCode
+              ),
             })
             .then(() => {
               req.login(newUser, () => {
                 res.redirect("/auth/verification");
               });
             })
-            .catch(error => {
+            .catch((error) => {
               next(error);
             });
         }
       });
     })
-    .catch(error => {
+    .catch((error) => {
       next(error);
     });
 });
@@ -117,7 +120,7 @@ authRoutes.post(
     successRedirect: "/profile/",
     failureRedirect: "/login",
     failureFlash: true,
-    passReqToCallback: true
+    passReqToCallback: true,
   })
 );
 
@@ -128,8 +131,8 @@ authRoutes.get(
   passport.authenticate("google", {
     scope: [
       "https://www.googleapis.com/auth/plus.login",
-      "https://www.googleapis.com/auth/plus.profile.emails.read"
-    ]
+      "https://www.googleapis.com/auth/plus.profile.emails.read",
+    ],
   })
 );
 
@@ -137,7 +140,7 @@ authRoutes.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     failureRedirect: "/",
-    successRedirect: "/profile"
+    successRedirect: "/profile",
   })
 );
 
@@ -154,12 +157,12 @@ authRoutes.get("/auth/confirm/:confirmCode", (req, res) => {
     { confirmationCode: confirmationCode },
     { $set: { status: "Active" } }
   )
-    .then(user => {
+    .then((user) => {
       req.login(user, () => {
         res.redirect("/auth/confirmation/" + user.username);
       });
     })
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 });
 
 authRoutes.get("/auth/confirmation/:username", (req, res) => {

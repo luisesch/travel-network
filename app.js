@@ -23,20 +23,20 @@ const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 
 const flash = require("connect-flash");
 
-const MongoStore = require("connect-mongo")(session);
+const MongoStore = require("connect-mongo");
 
 mongoose
   .connect(
     process.env.MONGODB_URI,
-    // "mongodb://localhost/travel-network",
+    //"mongodb://127.0.0.1/travel-network",
     { useNewUrlParser: true }
   )
-  .then(x => {
+  .then((x) => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
     );
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Error connecting to mongo", err);
   });
 
@@ -54,7 +54,7 @@ app.use(
     secret: "our-passport-local-strategy-app",
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: MongoStore.create({ client: mongoose.connection.getClient() }),
   })
 );
 
@@ -76,7 +76,7 @@ app.use(flash());
 passport.use(
   new LocalStrategy(
     {
-      passReqToCallback: true
+      passReqToCallback: true,
     },
     (req, username, password, next) => {
       User.findOne({ username }, (err, user) => {
@@ -116,7 +116,7 @@ app.use(
   require("node-sass-middleware")({
     src: path.join(__dirname, "public"),
     dest: path.join(__dirname, "public"),
-    sourceMap: true
+    sourceMap: true,
   })
 );
 
@@ -149,7 +149,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "/auth/google/callback"
+      callbackURL: "/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
       console.log("profile", profile);
@@ -164,14 +164,14 @@ passport.use(
 
           const newUser = new User({
             googleID: profile.id,
-            username: profile._json.name.givenName
+            username: profile._json.name.givenName,
           });
 
-          newUser.save().then(user => {
+          newUser.save().then((user) => {
             done(null, newUser);
           });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }

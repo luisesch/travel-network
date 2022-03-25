@@ -22,7 +22,7 @@ profileRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
 
   User.findOne({ _id: req.user._id })
     .populate("travels")
-    .then(user => {
+    .then((user) => {
       const travels = user.travels;
       firstThreeTravels = travels.slice(0, 3);
       // console.log(firstThreeTravels);
@@ -31,18 +31,18 @@ profileRoutes.get("/profile", ensureLogin.ensureLoggedIn(), (req, res) => {
       //get first three favorites of user
       Like.find({ userId: req.user._id })
         .populate("travelId")
-        .then(likes => {
+        .then((likes) => {
           firstThree = likes.slice(0, 3);
-          firstThree.forEach(item => firstThreeFavorites.push(item.travelId));
+          firstThree.forEach((item) => firstThreeFavorites.push(item.travelId));
         })
         .then(() =>
           res.render("user/profile", {
             user: req.user,
             travels: firstThreeTravels,
-            favorites: firstThreeFavorites
+            favorites: firstThreeFavorites,
           })
         )
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     });
@@ -56,10 +56,10 @@ profileRoutes.get(
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
     User.findOne({ _id: req.params.userId })
-      .then(document => {
+      .then((document) => {
         res.render("user/edit", { user: document });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -83,7 +83,7 @@ profileRoutes.post("/profile/:userId/editpassword", (req, res, next) => {
     .then(() => {
       res.redirect("/profile");
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
     });
 });
@@ -92,18 +92,19 @@ profileRoutes.post("/profile/:userId/editpassword", (req, res, next) => {
 profileRoutes.post(
   "/profile/:userId/editpicture",
   uploadCloud.single("profilepic"),
-  (req, res, next) => {
+  async (req, res) => {
     // hack to add a "a_exif" at the right point in the URL
-    let nonRotatedUrlArr = req.file.url.split("/");
+    let nonRotatedUrlArr = req.file.path.split("/");
     nonRotatedUrlArr.splice(6, 0, "a_exif");
     profilepic = nonRotatedUrlArr.join("/");
     // console.log(profilepic);
 
-    User.update({ _id: req.params.userId }, { $set: { photo: profilepic } })
+    User.updateOne({ _id: req.params.userId }, { $set: { photo: profilepic } })
       .then(() => {
+        console.log("test");
         res.redirect("/profile");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -116,7 +117,7 @@ profileRoutes.get(
   (req, res, next) => {
     User.findOne({ _id: req.user._id })
       .populate("travels")
-      .then(user => {
+      .then((user) => {
         const travels = user.travels;
         res.render("user/yourtravels", { travels: travels });
       });
@@ -130,8 +131,8 @@ profileRoutes.get(
   (req, res, next) => {
     Like.find({ userId: req.user._id })
       .populate("travelId")
-      .then(likes => {
-        const favorites = likes.map(e => e.travelId);
+      .then((likes) => {
+        const favorites = likes.map((e) => e.travelId);
         res.render("user/yourfavorites", { favorites: favorites });
       });
   }

@@ -20,7 +20,7 @@ const categories = [
   "hiking",
   "sea",
   "city trip",
-  "pilgrimage"
+  "pilgrimage",
 ];
 
 //add new experience
@@ -45,9 +45,9 @@ travelRoutes.post(
     if (req.files == "") {
       urlArray.push("/images/default_travel.png");
     } else {
-      req.files.forEach(file => {
+      req.files.forEach((file) => {
         // hack to add a "a_exif" at the right point in the URL
-        let nonRotatedUrlArr = file.url.split("/");
+        let nonRotatedUrlArr = file.path.split("/");
         nonRotatedUrlArr.splice(6, 0, "a_exif");
         urlArray.push(nonRotatedUrlArr.join("/"));
       });
@@ -59,7 +59,7 @@ travelRoutes.post(
       res.render("travel/add", {
         cities: cities,
         categories: categories,
-        message: "Choose at least one category."
+        message: "Choose at least one category.",
       });
       return;
     }
@@ -69,20 +69,20 @@ travelRoutes.post(
       category: category,
       title: title,
       description: description,
-      start: start
+      start: start,
     });
 
     //push id of new travel to user who created it (to travels array) and open travel page
-    newTravel.save().then(travel => {
+    newTravel.save().then((travel) => {
       const travelId = travel._id;
       User.update({ _id: req.user._id }, { $push: { travels: travelId } })
         .then(() => {
           res.redirect("/travel/" + travelId);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     });
@@ -98,14 +98,14 @@ travelRoutes.get(
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
     Travel.findById(req.params.travelId)
-      .then(travel => {
+      .then((travel) => {
         res.render("travel/travel-edit", {
           travel: travel,
           cities: cities,
-          categories: categories
+          categories: categories,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -122,19 +122,19 @@ travelRoutes.post(
     let currentPhotos = [];
 
     if (category == null) {
-      Travel.findById(travid).then(travel => {
+      Travel.findById(travid).then((travel) => {
         res.render("travel/travel-edit", {
           travel: travel,
           cities: cities,
           categories: categories,
-          message: "Choose at least one category."
+          message: "Choose at least one category.",
         });
       });
       return;
     }
 
     //create an array with new photos
-    req.files.forEach(file => {
+    req.files.forEach((file) => {
       currentPhotos.push(file.url);
     });
 
@@ -146,14 +146,14 @@ travelRoutes.post(
           title: title,
           description: description,
           start: start,
-          category: category
-        }
+          category: category,
+        },
       }
     )
-      .then(travel => {
+      .then((travel) => {
         res.redirect("/travel/" + travid);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -169,10 +169,10 @@ travelRoutes.get(
       { photos: photoUrl },
       { $pull: { photos: photoUrl } }
     )
-      .then(travel => {
+      .then((travel) => {
         res.redirect("/travel/edit/" + travel._id);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   }
 );
 
@@ -182,16 +182,16 @@ travelRoutes.get(
   ensureLogin.ensureLoggedIn(),
   (req, res, next) => {
     Travel.findByIdAndRemove(req.params.travelId)
-      .then(travel => {
+      .then((travel) => {
         Like.deleteMany({
-          travelId: req.params.travelId
+          travelId: req.params.travelId,
         })
           .then(() => res.redirect("/profile"))
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -209,21 +209,21 @@ travelRoutes.post(
     //check, if like already exists
     Like.count({
       userId: req.user._id,
-      travelId: req.params.travelId
-    }).then(count => {
+      travelId: req.params.travelId,
+    }).then((count) => {
       if (count > 0) {
         //if it exists, delete like/unlike
         // console.log("delete like");
         Like.findOneAndDelete({
           userId: req.user._id,
-          travelId: req.params.travelId
+          travelId: req.params.travelId,
         }).then(() => res.redirect(backUrl));
       } else {
         //if it doesn't exist, create new like
         // console.log("add like");
         const newLike = new Like({
           userId: req.user._id,
-          travelId: req.params.travelId
+          travelId: req.params.travelId,
         });
         //save like to database and redirect to travel page
         newLike
@@ -231,7 +231,7 @@ travelRoutes.post(
           .then(() => {
             res.redirect("/travel/" + req.params.travelId);
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       }
@@ -243,7 +243,7 @@ travelRoutes.post(
 travelRoutes.get("/travel/alltrips", (req, res, next) => {
   Travel.find()
     .sort("-createdAt")
-    .exec(function(
+    .exec(function (
       err,
       travels // .then(travels =>
     ) {
@@ -260,10 +260,10 @@ travelRoutes.get(
     //check, if travel is liked by user
     Like.count({
       userId: req.user._id,
-      travelId: req.params.travelId
+      travelId: req.params.travelId,
     })
       //if so, heart equals filled heart
-      .then(count => {
+      .then((count) => {
         if (count > 0) {
           //if it exists, delete like/unlike
           // console.log("delete like");
@@ -276,10 +276,10 @@ travelRoutes.get(
         }
       })
       .then(() => {
-        Travel.findById(req.params.travelId).then(travel => {
+        Travel.findById(req.params.travelId).then((travel) => {
           let canEdit = "";
           // console.log(req.params.travelId);
-          req.user.travels.forEach(object => {
+          req.user.travels.forEach((object) => {
             if (object == req.params.travelId) {
               canEdit = true;
             }
@@ -290,11 +290,11 @@ travelRoutes.get(
             travel,
             photoArray,
             heart,
-            canEdit
+            canEdit,
           });
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }

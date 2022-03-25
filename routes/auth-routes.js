@@ -17,7 +17,7 @@ const bcryptSalt = 10;
 //nodemailer
 const nodemailer = require("nodemailer");
 let transporter = nodemailer.createTransport({
-  service: "Gmail",
+  service: "gmail",
   auth: {
     user: process.env.EMAIL_ADDRESS,
     pass: process.env.EMAIL_PASSWORD,

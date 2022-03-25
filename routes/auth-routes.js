@@ -126,23 +126,23 @@ authRoutes.post(
 
 //login with Google
 
-authRoutes.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/plus.login",
-      "https://www.googleapis.com/auth/plus.profile.emails.read",
-    ],
-  })
-);
+// authRoutes.get(
+//   "/auth/google",
+//   passport.authenticate("google", {
+//     scope: [
+//       "https://www.googleapis.com/auth/plus.login",
+//       "https://www.googleapis.com/auth/plus.profile.emails.read",
+//     ],
+//   })
+// );
 
-authRoutes.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/",
-    successRedirect: "/profile",
-  })
-);
+// authRoutes.get(
+//   "/auth/google/callback",
+//   passport.authenticate("google", {
+//     failureRedirect: "/",
+//     successRedirect: "/profile",
+//   })
+// );
 
 //logout and redirect to login page
 authRoutes.get("/logout", (req, res) => {
